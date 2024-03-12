@@ -28,16 +28,6 @@ module.exports = (sequelize, DataTypes) => {
       imageURL: {
         type: DataTypes.STRING(255),
       },
-
-      created_at: {
-        type: DataTypes.DATETIME,
-        allowNull: false
-     },
-
-     updated_at: {
-        type: DataTypes.DATETIME,
-        allowNull: false
-        }
     },
 
     {underscored: true}

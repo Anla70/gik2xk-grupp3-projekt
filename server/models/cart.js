@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      
      },
 
-     payed:{
+     payed: {
       type: DataTypes.BOOLEAN,
      }
 

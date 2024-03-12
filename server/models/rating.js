@@ -8,14 +8,6 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true
      
      },
-     created_at: {
-        type: DataTypes.DATETIME,
-        allowNull: false
-     },
-     updated_at: {
-        type: DataTypes.DATETIME,
-        allowNull: false
-     },
      rating: {
         type: DataTypes.DOUBLE,
         allowNull: false

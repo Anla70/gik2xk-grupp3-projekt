@@ -46,7 +46,7 @@ Object.keys(db).forEach(modelName => {
   }
 });
 
-db.cart.belongsTo(db.user, { foreignKey: { allowNull: false }});
+/* db.cart.belongsTo(db.user, { foreignKey: { allowNull: false }});
 db.user.hasMany(db.cart, {
   allowNull: false,
   onDelete: 'CASCADE'});
@@ -67,7 +67,7 @@ db.products.belongsTo(db.ratings);
 db.products.hasMany(db.ratings, {
   allowNull: false,
   onDelete: 'CASCADE'
-});
+}); */
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
