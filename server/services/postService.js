@@ -17,25 +17,25 @@ const constraints = {
 	},
 };
 
-async function getByCartRow(id) {
+async function getByCart(cartId) {
 	try {
-		const cartRow = await db.cartRow.findOne({ where: { id: id } });
-		const allCartRows = await cartRow.getPosts({
-			include: [db.user, db.cartRow],
+		const cart = await db.cart.findOne({ where: { id: cartId } });
+		const allProducts = await cart.getProducts({
+			include: [db.user, db.cart],
 		});
 		/* Om allt blev bra, returnera allPosts */
-		return createResponseSuccess(allCartRows.map((post) => _formatPost(post)));
+		return createResponseSuccess(allProducts.map((product) => _formatProduct(product)));
 	} catch (error) {
 		return createResponseError(error.status, error.message);
 	}
 }
-
+// Ska det vara product eller cart? Vad ska hämtas?
 async function getByUser(userId) {
 	try {
 		const user = await db.user.findOne({ where: { id: userId } });
-		const allPosts = await user.getPosts({ include: [db.user, db.product] });
+		const allProducts = await user.getProducts({ include: [db.user, db.cart] });
 		/* Om allt blev bra, returnera allPosts */
-		return createResponseSuccess(allPosts.map((post) => _formatPost(post)));
+		return createResponseSuccess(allProducts.map((product) => _formatProduct(product)));
 	} catch (error) {
 		return createResponseError(error.status, error.message);
 	}
@@ -43,11 +43,11 @@ async function getByUser(userId) {
 
 async function getById(id) {
 	try {
-		const post = await db.post.findOne({
+		const product = await db.product.findOne({
 			where: { id },
 			include: [
 				db.user,
-				db.product,
+				db.cart,
 				{
 					model: db.rating,
 					include: [db.user],
@@ -55,17 +55,22 @@ async function getById(id) {
 			],
 		});
 		/* Om allt blev bra, returnera post */
-		return createResponseSuccess(_formatPost(post));
+		return createResponseSuccess(_formatProduct(product));
 	} catch (error) {
 		return createResponseError(error.status, error.message);
 	}
 }
 
+
 async function getAll() {
 	try {
-		const allPosts = await db.post.findAll({ include: [db.user, db.product] });
+		const allProducts = await db.product.getAll({ // Ändrat findAll till getAll
+			include: [db.user, db.cart],
+		});
 		/* Om allt blev bra, returnera allPosts */
-		return createResponseSuccess(allPosts.map((post) => _formatPost(post)));
+		return createResponseSuccess(
+			allProducts.map((product) => _formatProduct(product))
+		);
 	} catch (error) {
 		return createResponseError(error.status, error.message);
 	}
@@ -76,7 +81,7 @@ async function addRating(id, rating) {
 		return createResponseError(422, "Id är obligatoriskt");
 	}
 	try {
-		rating.postId = id;
+		rating.productId = id;
 		const newRating = await db.rating.create(rating);
 		return createResponseSuccess(newRating);
 	} catch (error) {
@@ -85,25 +90,25 @@ async function addRating(id, rating) {
 }
 
 // *******   Ska det vara product?
-async function create(post) {
-	const invalidData = validate(post, constraints);
+async function create(product) {
+	const invalidData = validate(product, constraints);
 	if (invalidData) {
 		return createResponseError(422, invalidData);
 	}
 	try {
-		const newPost = await db.post.create(post);
+		const newProduct = await db.product.create(product);
 		//post tags är en array av namn
 		//lägg till eventuella taggar
-		await _addTagToPost(newPost, post.tags);
+		await _addProductToCart(newProduct, product.carts);
 
-		return createResponseSuccess(newPost);
+		return createResponseSuccess(newProduct);
 	} catch (error) {
 		return createResponseError(error.status, error.message);
 	}
 }
 
-async function update(post, id) {
-	const invalidData = validate(post, constraints);
+async function update(product, id) {
+	const invalidData = validate(product, constraints);
 	if (!id) {
 		return createResponseError(422, "Id är obligatoriskt");
 	}
@@ -111,15 +116,15 @@ async function update(post, id) {
 		return createResponseError(422, invalidData);
 	}
 	try {
-		const existingPost = await db.post.findOne({ where: { id } });
-		if (!existingPost) {
-			return createResponseError(404, "Hittade inget inlägg att uppdatera.");
+		const existingProduct = await db.product.findOne({ where: { id } });
+		if (!existingProduct) {
+			return createResponseError(404, "Hittade ingen produkt att uppdatera.");
 		}
-		await _addTagToPost(existingPost, post.tags);
-		await db.post.update(post, {
+		await _addProductToCart(existingProduct, product.carts);
+		await db.product.update(product, {
 			where: { id },
 		});
-		return createResponseMessage(200, "Inlägget uppdaterades.");
+		return createResponseMessage(200, "Produkten uppdaterades.");
 	} catch (error) {
 		return createResponseError(error.status, error.message);
 	}
@@ -129,83 +134,84 @@ async function destroy(id) {
 		return createResponseError(422, "Id är obligatoriskt");
 	}
 	try {
-		await db.post.destroy({
+		await db.product.destroy({
 			where: { id },
 		});
-		return createResponseMessage(200, "Inlägget raderades.");
+		return createResponseMessage(200, "Produkten raderades.");
 	} catch (error) {
 		return createResponseError(error.status, error.message);
 	}
 }
 
-function _formatPost(post) {
-	const cleanPost = {
-		id: post.id,
-		title: post.title,
-		description: post.description,
-		imageUrl: post.imageUrl,
-		price: post.price,
-		createdAt: post.createdAt,
-		updatedAt: post.updatedAt,
+function _formatProduct(product) {
+	const cleanProduct = {
+		id: product.id,
+		title: product.title,
+		description: product.description,
+		imageUrl: product.imageUrl,
+		price: product.price,
+		createdAt: product.createdAt,
+		updatedAt: product.updatedAt,
 		user: {
-			id: post.user.id,
-			email: post.user.email,
-			firstName: post.user.firstName,
-			lastName: post.user.lastName,
+			id: product.user.id,
+			email: product.user.email,
+			firstName: product.user.firstName,
+			lastName: product.user.lastName,
 		},
 
-		tags: [],
+		carts: [],
+		ratings:[],
 	};
 
-	if (post.rating) {
-		cleanPost.rating = [];
+	if (product.ratings) {
+		cleanProduct.ratings = [];
 
-		post.ratings.map((rating) => {
-			return (cleanPost.ratings = [
+		product.ratings.map((rating) => {
+			return (cleanProduct.ratings = [
 				{
 					title: rating.title,
 					body: rating.body,
 					author: rating.user.username,
 					createdAt: rating.createdAt,
 				},
-				...cleanPost.rating,
+				...cleanProduct.ratings,
 			]);
 		});
 	}
 
-	if (post.cartRow) {
-		post.cartRows.map((cartRow) => {
-			return (cleanPost.cartRows = [cartRow.id, ...cleanPost.cartRows]);
+	if (product.carts) {
+		product.carts.map((cart) => {
+			return (cleanProduct.carts = [cart.id, ...cleanProduct.carts]);
 		});
-		return cleanPost;
+		return cleanProduct;
 	}
 }
 
-async function _findOrCreateTagId(name) {
+async function _findOrCreateCartId(name) {
 	name = name.toLowerCase().trim();
-	const foundOrCreatedTag = await db.tag.findOrCreate({ where: { name } });
+	const foundOrCreatedCart = await db.cart._findOrCreateCartId({ where: { name } });
 
-	return foundOrCreatedTag[0].id;
+	return foundOrCreatedCart[0].id;
 }
 
-async function _addTagToPost(post, cartRows) {
-	if (cartRows) {
-		cartRows.forEach(async (cartRow) => {
-			const cartRowId = await _findOrCreateTagId(cartRow);
-			await post.addCartRow(cartRowId);
+async function _addProductToCart(product, carts) {
+	if (carts) {
+		carts.forEach(async (cart) => {
+			const cartId = await _findOrCreateCartId(cart);
+			await product.addCart(cartId);
 		});
 	}
 }
 
 module.exports = {
-	// getByProduct,
+	
+	_findOrCreateCartId,
+	_addProductToCart,
+	getByCart,
 	getByUser,
 	addRating,
-	// getByTag,
-
 	getById,
 	getAll,
-
 	create,
 	update,
 	destroy,

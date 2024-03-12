@@ -11,11 +11,17 @@ module.exports = (sequelize, DataTypes) => {
 				type: DataTypes.DOUBLE,
 				allowNull: false,
 			},
-			product_id: {
+			// created_at:{
+			// 	type: DataTypes.DATETIME,
+			// },
+			// updated_at: {
+			// 	type: DataTypes.DATETIME,
+			// },
+			/* product_id: {
 				type: DataTypes.INTEGER,
 				foreignKey: true,
 				allowNull: false,
-			},
+			}, */
 		},
 
 		{ underscored: true }
