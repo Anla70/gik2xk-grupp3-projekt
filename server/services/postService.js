@@ -17,24 +17,21 @@ const constraints = {
 	},
 };
 
-
 // *******************
 async function getAll() {
 	try {
-		const allProducts = await db.product.findAll( // Ändrat findAll till getAll
-		
-		);
+		const allProducts = await db.product
+			.findAll // Ändrat findAll till getAll
+			();
 		/* Om allt blev bra, returnera allPosts */
 		return createResponseSuccess(
-			allProducts.map((product) => _formatProduct(product)));
+			allProducts.map((product) => _formatProduct(product))
+		);
 		// return createResponseSuccess(allProducts);
-		
 	} catch (error) {
 		return createResponseError(error.status, error.message);
 	}
-}  
-
-
+}
 
 async function getByCart(cartId) {
 	try {
@@ -43,7 +40,9 @@ async function getByCart(cartId) {
 			// include: [db.user, db.cart],
 		});
 		/* Om allt blev bra, returnera allPosts */
-		return createResponseSuccess(allProducts.map((product) => _formatProduct(product)));
+		return createResponseSuccess(
+			allProducts.map((product) => _formatProduct(product))
+		);
 	} catch (error) {
 		return createResponseError(error.status, error.message);
 	}
@@ -52,9 +51,12 @@ async function getByCart(cartId) {
 async function getByUser(userId) {
 	try {
 		const user = await db.user.findOne({ where: { id: userId } });
-		const allProducts = await user.getProducts(/*{ include: [db.user, db.cart] }*/);
+		const allProducts =
+			await user.getProducts(/*{ include: [db.user, db.cart] }*/);
 		/* Om allt blev bra, returnera allPosts */
-		return createResponseSuccess(allProducts.map((product) => _formatProduct(product)));
+		return createResponseSuccess(
+			allProducts.map((product) => _formatProduct(product))
+		);
 	} catch (error) {
 		return createResponseError(error.status, error.message);
 	}
@@ -148,7 +150,6 @@ async function destroy(id) {
 }
 // *******************
 function _formatProduct(product) {
-
 	const cleanProduct = {
 		id: product.id,
 		title: product.title,
@@ -159,7 +160,7 @@ function _formatProduct(product) {
 		updatedAt: product.updatedAt,
 
 		// author: {
-			
+
 		// 	    // id: post.user.id,
 		// 	// id: product.user.id,
 		// 	// email: product.user.email,
@@ -168,8 +169,7 @@ function _formatProduct(product) {
 		// },
 
 		carts: [],
-		ratings:[],
-		
+		ratings: [],
 	};
 
 	if (product.ratings) {
@@ -177,15 +177,14 @@ function _formatProduct(product) {
 
 		product.ratings.map((rating) => {
 			return (cleanProduct.ratings = [
-				{   
+				{
 					//id: user.id,
 					// Rating (title).rating.rating (title)
 					rating: rating.rating,
 					// title: rating.title,
 					// body: rating.body,
 					// author: user.id,
-					
-					
+
 					//  author: comment.user.username,
 					createdAt: rating.createdAt,
 				},
@@ -193,21 +192,20 @@ function _formatProduct(product) {
 			]);
 		});
 	}
-// 	if (product.ratings) {
-//     cleanProduct.ratings = product.ratings.map((rating) => ({
-// 			rating:rating.rating,
-//         // title: rating.title,
-//         // body: rating.body,
-//         // author: rating.user ? rating.user.email: 'Anonym',
-//         createdAt: rating.createdAt,
-//     }));
-// }
+	// 	if (product.ratings) {
+	//     cleanProduct.ratings = product.ratings.map((rating) => ({
+	// 			rating:rating.rating,
+	//         // title: rating.title,
+	//         // body: rating.body,
+	//         // author: rating.user ? rating.user.email: 'Anonym',
+	//         createdAt: rating.createdAt,
+	//     }));
+	// }
 
 	if (product.carts) {
 		product.carts.map((cart) => {
 			return (cleanProduct.carts = [cart.id, ...cleanProduct.carts]);
 		});
-		
 	}
 	// **********************
 	return cleanProduct;
@@ -215,7 +213,9 @@ function _formatProduct(product) {
 
 async function _findOrCreateCartId(name) {
 	name = name.toLowerCase().trim();
-	const foundOrCreatedCart = await db.cart._findOrCreateCartId({ where: { name } });
+	const foundOrCreatedCart = await db.cart._findOrCreateCartId({
+		where: { name },
+	});
 
 	return foundOrCreatedCart[0].id;
 }
@@ -230,7 +230,6 @@ async function _addProductToCart(product, carts) {
 }
 
 module.exports = {
-	
 	_findOrCreateCartId,
 	_addProductToCart,
 	getByCart,
