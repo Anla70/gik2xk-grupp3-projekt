@@ -17,6 +17,25 @@ const constraints = {
 	},
 };
 
+
+// *******************
+async function getAll() {
+	try {
+		const allProducts = await db.product.findAll( // Ändrat findAll till getAll
+		
+		);
+		/* Om allt blev bra, returnera allPosts */
+		return createResponseSuccess(
+			allProducts.map((product) => _formatProduct(product)));
+		// return createResponseSuccess(allProducts);
+		
+	} catch (error) {
+		return createResponseError(error.status, error.message);
+	}
+}  
+
+
+
 async function getByCart(cartId) {
 	try {
 		const cart = await db.cart.findOne({ where: { id: cartId } });
@@ -56,21 +75,6 @@ async function getById(id) {
 		});
 		/* Om allt blev bra, returnera post */
 		return createResponseSuccess(_formatProduct(product));
-	} catch (error) {
-		return createResponseError(error.status, error.message);
-	}
-}
-
-
-async function getAll() {
-	try {
-		const allProducts = await db.product.getAll({ // Ändrat findAll till getAll
-			include: [db.user, db.cart],
-		});
-		/* Om allt blev bra, returnera allPosts */
-		return createResponseSuccess(
-			allProducts.map((product) => _formatProduct(product))
-		);
 	} catch (error) {
 		return createResponseError(error.status, error.message);
 	}
@@ -142,8 +146,9 @@ async function destroy(id) {
 		return createResponseError(error.status, error.message);
 	}
 }
-
+// *******************
 function _formatProduct(product) {
+	console.log("Original product:", product);
 	const cleanProduct = {
 		id: product.id,
 		title: product.title,
@@ -152,15 +157,16 @@ function _formatProduct(product) {
 		price: product.price,
 		createdAt: product.createdAt,
 		updatedAt: product.updatedAt,
-		user: {
-			id: product.user.id,
-			email: product.user.email,
-			firstName: product.user.firstName,
-			lastName: product.user.lastName,
-		},
+		// user: {
+		// 	id: product.user.id,
+		// 	email: product.user.email,
+		// 	firstName: product.user.firstName,
+		// 	lastName: product.user.lastName,
+		// },
 
 		carts: [],
 		ratings:[],
+		
 	};
 
 	if (product.ratings) {
@@ -178,13 +184,23 @@ function _formatProduct(product) {
 			]);
 		});
 	}
+	if (product.ratings) {
+    cleanProduct.ratings = product.ratings.map((rating) => ({
+        title: rating.title,
+        body: rating.body,
+        author: rating.user ? rating.user.username : 'Anonym',
+        createdAt: rating.createdAt,
+    }));
+}
 
 	if (product.carts) {
 		product.carts.map((cart) => {
 			return (cleanProduct.carts = [cart.id, ...cleanProduct.carts]);
 		});
-		return cleanProduct;
+		
 	}
+	// **********************
+	return cleanProduct;
 }
 
 async function _findOrCreateCartId(name) {

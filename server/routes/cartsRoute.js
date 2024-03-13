@@ -10,8 +10,6 @@ router.get("/cart/addProduct", (req, res) => {
 	});
 });
 
-
-
 router.post("/:id/addToCart/", (req, res) => {
 	const cart = req.body;
 	db.cart._findOrCreateCartId(cart).then((result) => {
@@ -20,7 +18,7 @@ router.post("/:id/addToCart/", (req, res) => {
 });
 
 router.get("/", (req, res) => {
-	db.tag.findAll().then((result) => {
+	db.cart.findAll().then((result) => {
 		res.send(result);
 	});
 });

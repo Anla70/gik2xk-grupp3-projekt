@@ -42,17 +42,17 @@ router.get("/", (req, res) => {
 	});
 });
 
-// router.post('/', (req, res) => {
-//   const user = req.body;
-//   const invalidData = validate(user, constraints);
-//   if (invalidData) {
-//     res.status(400).json(invalidData);
-//   } else {
-//     db.user.create(user).then((result) => {
-//       res.send(result);
-//     });
-//   }
-// });
+router.post('/', (req, res) => {
+  const user = req.body;
+  const invalidData = validate(user, constraints);
+  if (invalidData) {
+    res.status(400).json(invalidData);
+  } else {
+    db.user.create(user).then((result) => {
+      res.send(result);
+    });
+  }
+});
 
 router.post("/:id/product/", (req, res) => {
 	const user = req.body;
