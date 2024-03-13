@@ -148,7 +148,7 @@ async function destroy(id) {
 }
 // *******************
 function _formatProduct(product) {
-	console.log("Original product:", product);
+
 	const cleanProduct = {
 		id: product.id,
 		title: product.title,

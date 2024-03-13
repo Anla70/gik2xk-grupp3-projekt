@@ -24,10 +24,7 @@ if (config.use_env_variable) {
 fs.readdirSync(__dirname)
 	.filter((file) => {
 		return (
-			file.indexOf(".") !== 0 &&
-			file !== basename &&
-			file.slice(-3) === ".js" &&
-			file.indexOf(".test.js") === -1
+			file.indexOf(".") !== 0 && file !== basename && file.slice(-3) === ".js"
 		);
 	})
 
@@ -45,22 +42,22 @@ Object.keys(db).forEach((modelName) => {
 	}
 });
 
- db.cart.belongsTo(db.user, { foreignKey: { allowNull: false }});
- db.user.hasMany(db.cart, {
-   allowNull: false,
-   onDelete: 'CASCADE'});
-
+db.cart.belongsTo(db.user, { allowNull: false });
+db.user.hasMany(db.cart, {
+	allowNull: false,
+	onDelete: "CASCADE",
+});
 
 db.product.belongsToMany(db.cart, { through: db.cartRow });
 db.cart.belongsToMany(db.product, { through: db.cartRow });
 
 // db.product.belongsToMany(db.user, { through: db.cart, through: db.cartRow });
 
- db.rating.belongsTo(db.product);
- db.product.hasMany(db.rating, {
-   allowNull: false,
-   onDelete: 'CASCADE'
- }); 
+db.rating.belongsTo(db.product);
+db.product.hasMany(db.rating, {
+	allowNull: false,
+	onDelete: "CASCADE",
+});
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;

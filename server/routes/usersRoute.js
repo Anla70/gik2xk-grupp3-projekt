@@ -78,7 +78,7 @@ router.put("/", (req, res) => {
 				where: { id: user.id },
 			})
 			.then((result) => {
-				res.send("Produkten har uppdaterats.");
+				res.send("Användaren har uppdaterats.");
 			});
 	}
 });
@@ -89,7 +89,7 @@ router.delete("/", (req, res) => {
 			where: { id: req.body.id },
 		})
 		.then(() => {
-			res.json(`Produkten raderades`);
+			res.json(`Användaren raderades`);
 		});
 });
 
