@@ -42,7 +42,7 @@ Object.keys(db).forEach((modelName) => {
 	}
 });
 
-db.cart.belongsTo(db.user, { allowNull: false });
+db.cart.belongsTo(db.user, { foreignKey: {allowNull: false }});
 db.user.hasMany(db.cart, {
 	allowNull: false,
 	onDelete: "CASCADE",

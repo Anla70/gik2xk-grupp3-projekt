@@ -34,6 +34,24 @@ router.post('/:id/addRating', (req, res) => {
   });
 });
 
+router.get('/:id/getRating', (req, res) => {
+  const id = req.params.id;
+
+  postService.getById(id).then((result) => {
+    res.status(result.status).json(result.data);
+  });
+});
+
+// Eventuellt senare
+// router.put('/:id/rating', (req, res) => {
+//   const rating = req.body;
+//   const id = rating.id;
+
+//   postService.update(rating, id).then((result) => {
+//     res.status(result.status).json(result.data);
+//   });
+// });
+
 router.post('/', (req, res) => {
   const product = req.body;
   postService.create(product).then((result) => {

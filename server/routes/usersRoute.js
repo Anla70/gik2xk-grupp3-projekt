@@ -29,6 +29,13 @@ router.get("/:id/getCart/", (req, res) => {
 	});
 });
 
+router.get("/:id/", (req, res) => {
+	const id = req.params.id;
+	postService.getById(id).then((result) => {
+		res.status(result.status).json(result.data);
+	});
+});
+
 router.get("/:id/getProduct/", (req, res) => {
 	const id = req.params.id;
 	postService.getByUser(id).then((result) => {

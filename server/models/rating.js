@@ -5,12 +5,18 @@ module.exports = (sequelize, DataTypes) => {
 			id: {
 				type: DataTypes.INTEGER,
 				primaryKey: true,
-				autoIncrement: true,
+				autoIncrement: true
 			},
+
+			/* ändra rating till review */
 			rating: {
 				type: DataTypes.DOUBLE,
-				allowNull: false,
+				allowNull: false
 			},
+			// userId: {
+			// 	type: DataTypes.INTEGER
+
+			// },
 			// created_at:{
 			// 	type: DataTypes.DATETIME,
 			// },

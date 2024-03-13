@@ -40,7 +40,7 @@ async function getByCart(cartId) {
 	try {
 		const cart = await db.cart.findOne({ where: { id: cartId } });
 		const allProducts = await cart.getProducts({
-			include: [db.user, db.cart],
+			// include: [db.user, db.cart],
 		});
 		/* Om allt blev bra, returnera allPosts */
 		return createResponseSuccess(allProducts.map((product) => _formatProduct(product)));
@@ -48,11 +48,11 @@ async function getByCart(cartId) {
 		return createResponseError(error.status, error.message);
 	}
 }
-// Ska det vara product eller cart? Vad ska hämtas?
+// Ska det vara product eller cart? Vad ska hämtas? /* */
 async function getByUser(userId) {
 	try {
 		const user = await db.user.findOne({ where: { id: userId } });
-		const allProducts = await user.getProducts({ include: [db.user, db.cart] });
+		const allProducts = await user.getProducts(/*{ include: [db.user, db.cart] }*/);
 		/* Om allt blev bra, returnera allPosts */
 		return createResponseSuccess(allProducts.map((product) => _formatProduct(product)));
 	} catch (error) {
@@ -65,11 +65,11 @@ async function getById(id) {
 		const product = await db.product.findOne({
 			where: { id },
 			include: [
-				db.user,
-				db.cart,
+				// db.user,
+				// db.rating,
 				{
 					model: db.rating,
-					include: [db.user],
+					// include: [db.user],
 				},
 			],
 		});
@@ -157,11 +157,14 @@ function _formatProduct(product) {
 		price: product.price,
 		createdAt: product.createdAt,
 		updatedAt: product.updatedAt,
-		// user: {
-		// 	id: product.user.id,
-		// 	email: product.user.email,
-		// 	firstName: product.user.firstName,
-		// 	lastName: product.user.lastName,
+
+		// author: {
+			
+		// 	    // id: post.user.id,
+		// 	// id: product.user.id,
+		// 	// email: product.user.email,
+		// 	// firstName: rating.user.firstName,
+		// 	// lastName: product.user.lastName,
 		// },
 
 		carts: [],
@@ -174,24 +177,31 @@ function _formatProduct(product) {
 
 		product.ratings.map((rating) => {
 			return (cleanProduct.ratings = [
-				{
-					title: rating.title,
-					body: rating.body,
-					author: rating.user.username,
+				{   
+					//id: user.id,
+					// Rating (title).rating.rating (title)
+					rating: rating.rating,
+					// title: rating.title,
+					// body: rating.body,
+					// author: user.id,
+					
+					
+					//  author: comment.user.username,
 					createdAt: rating.createdAt,
 				},
 				...cleanProduct.ratings,
 			]);
 		});
 	}
-	if (product.ratings) {
-    cleanProduct.ratings = product.ratings.map((rating) => ({
-        title: rating.title,
-        body: rating.body,
-        author: rating.user ? rating.user.username : 'Anonym',
-        createdAt: rating.createdAt,
-    }));
-}
+// 	if (product.ratings) {
+//     cleanProduct.ratings = product.ratings.map((rating) => ({
+// 			rating:rating.rating,
+//         // title: rating.title,
+//         // body: rating.body,
+//         // author: rating.user ? rating.user.email: 'Anonym',
+//         createdAt: rating.createdAt,
+//     }));
+// }
 
 	if (product.carts) {
 		product.carts.map((cart) => {
