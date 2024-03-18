@@ -1,5 +1,6 @@
-import { Button, TextField } from "@mui/material";
+import { Button, TextField, Typography, Rating } from "@mui/material";
 import { useState } from "react";
+import * as React from "react";
 
 function RatingForm({ onSave }) {
 	const [rating, setRating] = useState({ title: "", body: "", userId: 1 });

@@ -1,13 +1,16 @@
 module.exports = (sequelize, DataTypes) => {
 	return sequelize.define(
-		"product",
+		"review",
 		{
 			id: {
 				type: DataTypes.INTEGER,
 				primaryKey: true,
 				autoIncrement: true,
+			},			
+			review: {
+				type: DataTypes.DOUBLE,
+				allowNull: false,
 			},
-
 			title: {
 				type: DataTypes.STRING(100),
 				allowNull: false,
@@ -15,21 +18,12 @@ module.exports = (sequelize, DataTypes) => {
 					len: [2, 100],
 				},
 			},
-
 			body: {
 				type: DataTypes.TEXT,
-			},
-
-			price: {
-				type: DataTypes.DOUBLE,
 				allowNull: false,
 			},
-
-			imageUrl: {
-				type: DataTypes.STRING(255),
-			},
 		},
-
 		{ underscored: true }
 	);
 };
+
