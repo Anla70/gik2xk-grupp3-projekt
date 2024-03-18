@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const postService = require('../services/postService');
 const db = require('../models');
+const review = require('../models/review');
 
 
 
@@ -25,29 +26,28 @@ router.get('/:id', (req, res) => {
   });
 });
 
-router.post('/:id/addRating', (req, res) => {
-  const rating = req.body;
+router.post('/:id/addReview', (req, res) => {
+  const review = req.body;
   const id = req.params.id;
 
-  postService.addRating(id, rating).then((result) => {
+  postService.addReview(id, review).then((result) => {
     res.status(result.status).json(result.data);
   });
 });
 
-router.get('/:id/getRating', (req, res) => {
+router.get('/:id/getReview', (req, res) => {
   const id = req.params.id;
-
   postService.getById(id).then((result) => {
     res.status(result.status).json(result.data);
   });
 });
 
 // Eventuellt senare
-// router.put('/:id/rating', (req, res) => {
-//   const rating = req.body;
-//   const id = rating.id;
+// router.put('/:id/review', (req, res) => {
+//   const review = req.body;
+//   const id = review.id;
 
-//   postService.update(rating, id).then((result) => {
+//   postService.update(review, id).then((result) => {
 //     res.status(result.status).json(result.data);
 //   });
 // });

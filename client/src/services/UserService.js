@@ -13,4 +13,4 @@ export async function getAll() {
     e?.response ? console.log(e.response.data) : console.log(e);
   }
 }
-export default ProductDetail;
+// export default ProductDetail;

@@ -68,9 +68,9 @@ async function getById(id) {
 			where: { id },
 			include: [
 				// db.user,
-				// db.rating,
+				// db.review,
 				{
-					model: db.rating,
+					model: db.review,
 					// include: [db.user],
 				},
 			],
@@ -82,14 +82,14 @@ async function getById(id) {
 	}
 }
 
-async function addRating(id, rating) {
+async function addReview (id, review) {
 	if (!id) {
 		return createResponseError(422, "Id är obligatoriskt");
 	}
 	try {
-		rating.productId = id;
-		const newRating = await db.rating.create(rating);
-		return createResponseSuccess(newRating);
+		review.productId = id;
+		const newReview = await db.review.create(review);
+		return createResponseSuccess(newReview );
 	} catch (error) {
 		return createResponseError(error.status, error.message);
 	}
@@ -164,41 +164,41 @@ function _formatProduct(product) {
 		// 	    // id: post.user.id,
 		// 	// id: product.user.id,
 		// 	// email: product.user.email,
-		// 	// firstName: rating.user.firstName,
+		// 	// firstName: review.user.firstName,
 		// 	// lastName: product.user.lastName,
 		// },
 
 		carts: [],
-		ratings: [],
+		reviews: [],
 	};
 
-	if (product.ratings) {
-		cleanProduct.ratings = [];
+	if (product.reviews) {
+		cleanProduct.reviews = [];
 
-		product.ratings.map((rating) => {
-			return (cleanProduct.ratings = [
+		product.reviews.map((review) => {
+			return (cleanProduct.reviews = [
 				{
 					//id: user.id,
-					// Rating (title).rating.rating (title)
-					rating: rating.rating,
-					// title: rating.title,
-					// body: rating.body,
+					// review (title).review.review (title)
+					review: review.review,
+					title: review.title,
+					 body: review.body,
 					// author: user.id,
 
 					//  author: comment.user.username,
-					createdAt: rating.createdAt,
+					createdAt: review.createdAt,
 				},
-				...cleanProduct.ratings,
+				...cleanProduct.reviews,
 			]);
 		});
 	}
-	// 	if (product.ratings) {
-	//     cleanProduct.ratings = product.ratings.map((rating) => ({
-	// 			rating:rating.rating,
-	//         // title: rating.title,
-	//         // body: rating.body,
-	//         // author: rating.user ? rating.user.email: 'Anonym',
-	//         createdAt: rating.createdAt,
+	// 	if (product.reviews) {
+	//     cleanProduct.reviews = product.reviews.map((review) => ({
+	// 			review:review.review,
+	//         // title: review.title,
+	//         // body: review.body,
+	//         // author: review.user ? review.user.email: 'Anonym',
+	//         createdAt: review.createdAt,
 	//     }));
 	// }
 
@@ -234,7 +234,7 @@ module.exports = {
 	_addProductToCart,
 	getByCart,
 	getByUser,
-	addRating,
+	addReview,
 	getById,
 	getAll,
 	create,

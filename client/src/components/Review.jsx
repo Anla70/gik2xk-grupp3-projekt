@@ -1,37 +1,35 @@
-import { Box, TextField, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { grey } from "@mui/material/colors";
-// import { toDateTimeString } from '../common/formatHelpers';
+import { toDateTimeString } from '../common/formatHelpers';
+import Rating from '@mui/material/Rating';
 
-function Rating({ rating }) {
+
+function Review({ review }) {
 	return (
-		// <Product sx={{ mb: 1, borderBottom: `1px solid ${grey[300]}` }}>
-		<TextField
-			primary={
+		<Box sx={{ mb: 1, borderBottom: `1px solid ${grey[300]}` }}>
 				<Typography
 					color='text.secondary'
 					component='p'
 					fontWeight='bold'
 					variant='body1'
+					sx={{ mb: 1 }}
 				>
 					{/* {rating.author} säger: */}
 				</Typography>
-			}
-			secondary={
-				<Box>
-					<Typography variant='body2'>
-						{toDateTimeString(rating.createdAt)}
+			
+					<Typography variant='body2' sx={{ mb: 1 }}>
+						{toDateTimeString(review.createdAt)}
 					</Typography>
 					<Typography sx={{ my: 1 }} color='text.primary' variant='h4'>
-						{rating.title}
+						{review.title}
+						<Rating name="read-only" value={review.rating} readOnly />
 					</Typography>
+
 					<Typography color='text.secondary' variant='body1'>
-						{rating.body}
+						{review.body}
 					</Typography>
-				</Box>
-			}
-		></TextField>
-		// </Product>
+				</Box> 
 	);
 }
 
-export default Rating;
+export default Review;

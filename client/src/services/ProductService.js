@@ -29,7 +29,7 @@ export async function getOne(id) {
 
 export async function create(product) {
 	try {
-		const response = await axios.product("/products", product);
+		const response = await axios.post("/products", product);
 		if (response.status === 200) return response.data;
 		else {
 			console.log(response.data);
@@ -58,7 +58,7 @@ export async function remove(id) {
 		const response = await axios.delete("/products", { data: { id } });
 		if (response.status === 200) return response.data;
 		else {
-			console.log(data);
+			console.log(response.data);
 			return null;
 		}
 	} catch (e) {
@@ -66,15 +66,15 @@ export async function remove(id) {
 	}
 }
 
-export async function addRating(productId, rating) {
+export async function addReview(productId, review) {
 	try {
-		const response = await axios.product(
-			`/products/${productId}/addRating`,
-			rating
+		const response = await axios.post(
+			`/products/${productId}/addReview`,
+			review
 		);
 		if (response.status === 200) return response.data;
 		else {
-			console.log(data);
+			console.log(response.data);
 			return null;
 		}
 	} catch (e) {

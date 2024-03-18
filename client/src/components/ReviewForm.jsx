@@ -2,12 +2,21 @@ import { Button, TextField, Typography, Rating } from "@mui/material";
 import { useState } from "react";
 import * as React from "react";
 
-function RatingForm({ onSave }) {
+
+function ReviewForm({ onSave }) {
 	const [rating, setRating] = useState({ title: "", body: "", userId: 1 });
 
 	return (
 		<form>
-			<div>
+		<div>
+			<Typography component='legend'>Betygsätt</Typography>
+			<Rating
+name="simple-controlled"
+value={review.rating}
+onChange={(event, newValue) => {
+	setRating({ ...review, rating: newValue });
+}}
+/>
 				<TextField
 					fullWidth
 					value={rating.title}
@@ -35,4 +44,4 @@ function RatingForm({ onSave }) {
 	);
 }
 
-export default RatingForm;
+export default ReviewForm;
