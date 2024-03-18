@@ -22,7 +22,7 @@ function Review({ review }) {
 					</Typography>
 					<Typography sx={{ my: 1 }} color='text.primary' variant='h4'>
 						{review.title}
-						<Rating name="read-only" value={review.rating} readOnly />
+						<Rating name="read-only" value={review.review} readOnly />
 					</Typography>
 
 					<Typography color='text.secondary' variant='body1'>

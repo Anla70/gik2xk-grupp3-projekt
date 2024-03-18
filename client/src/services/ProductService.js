@@ -19,7 +19,7 @@ export async function getOne(id) {
 		const response = await axios.get(`/products/${id}`);
 		if (response.status === 200) return response.data;
 		else {
-			console.log(response.data);
+			console.log(data);
 			return null;
 		}
 	} catch (e) {
@@ -58,7 +58,7 @@ export async function remove(id) {
 		const response = await axios.delete("/products", { data: { id } });
 		if (response.status === 200) return response.data;
 		else {
-			console.log(response.data);
+			console.log(data);
 			return null;
 		}
 	} catch (e) {
@@ -74,7 +74,7 @@ export async function addReview(productId, review) {
 		);
 		if (response.status === 200) return response.data;
 		else {
-			console.log(response.data);
+			console.log(data);
 			return null;
 		}
 	} catch (e) {

@@ -21,6 +21,7 @@ function ProductEdit() {
 		id: 0,
 		title: "",
 		body: "",
+		price: 0,
 		imageUrl: "",
 		carts: [],
 		userId: 2,
@@ -38,7 +39,6 @@ function ProductEdit() {
 	function onChange(e) {
 		const name = e.target.name;
 		const value = e.target.value;
-
 		const newProduct = { ...product, [name]: value };
 		setProduct(newProduct);
 	}
@@ -104,15 +104,28 @@ function ProductEdit() {
 					</Box>
 					<Box>
 						<TextField
+						fullWidth
+						margin='normal'
+						onChange={onChange}
+						value={product.body}
+						multiline
+						minRows={5}
+						name='body'
+						label='Innehåll'
+						id='body'
+						
+						/>
+					</Box>
+					<Box>
+						<TextField
 							fullWidth
 							margin='normal'
 							onChange={onChange}
 							value={product.price}
-							multiline
-							minRows={5}
-							name='body'
-							id='body'
-							label='Innehåll'
+							name='price' 
+							id='price'
+							label='Pris'
+							type='number' 
 						/>
 					</Box>
 					<Box>
@@ -157,6 +170,8 @@ function ProductEdit() {
 									variant='contained'
 									color='error'
 								>
+
+									{/* ********************* */}
 									Ta bort
 								</Button>
 							)}

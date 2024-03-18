@@ -1,7 +1,7 @@
 import ProductItemLarge from "../components/ProductItemLarge";
 import ReviewForm from "../components/ReviewForm";
 import Review from "../components/Review";
-import { calculateAverageRating } from '../common/Ratinghelpers';
+import { calculateAverageRating } from '../common/RatingHelp';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Alert, Box, Button, Container, List, Typography } from '@mui/material';
@@ -12,27 +12,24 @@ import EditIcon from '@mui/icons-material/Edit';
 
 function ProductDetail() {
 
-
 	const { id } = useParams();
-
   const [product, setProduct] = useState(null);
-	
+	const navigate = useNavigate();
+  const averageRating = product ? calculateAverageRating(product.reviews) : 0;
+  const location = useLocation();
+  const message = location.state?.message;
+  const [open, setOpen] = useState(true);
+
   useEffect(() => {
     getOne(id).then((product) => setProduct(product));
   }, [id]);
 
-  const navigate = useNavigate();
-  const averageRating = product ? calculateAverageRating(product.reviews) : 0;
-
+ 
 	function onReviewAdd(review) {
     addReview(product.id, review)
       .then((review) => getOne(id))
       .then((product) => setProduct(product));
-			
   }
-  const location = useLocation();
-  const message = location.state?.message;
-  const [open, setOpen] = useState(true);
 
   function clearMessage() {
     window.history.replaceState({}, '');
@@ -70,7 +67,7 @@ function ProductDetail() {
           </Button>
         </Box>
         <Box>
-          <Typography variant="h3">Ratings</Typography>
+          <Typography variant="h3">Review</Typography>
           <ReviewForm onSave={onReviewAdd} />
           {product.reviews && (
             <List sx={{ width: '100%', bgcolor: 'background.paper' }}>

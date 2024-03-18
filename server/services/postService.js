@@ -153,7 +153,7 @@ function _formatProduct(product) {
 	const cleanProduct = {
 		id: product.id,
 		title: product.title,
-		description: product.description,
+		body: product.body,
 		imageUrl: product.imageUrl,
 		price: product.price,
 		createdAt: product.createdAt,
