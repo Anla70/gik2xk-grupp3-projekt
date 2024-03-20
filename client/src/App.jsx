@@ -13,6 +13,10 @@ function App() {
           <Button color="inherit">
             <Link to="/products/new">Skapa ny produkt</Link>
           </Button>
+
+          <Button color='inherit'>
+							<Link to='/cart'>Varukorg</Link>
+				</Button>
         </Toolbar>
       </AppBar>
     </Box>

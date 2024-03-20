@@ -5,9 +5,8 @@ function ProductItemLarge({product}) {
   <>
   
   <h3>{product.title}</h3>
-  <p>{product.body}</p>
-  
-  
+  <p>{product.body}</p>  
+  <p>{product.price} kr</p>
   </>
  );
 }

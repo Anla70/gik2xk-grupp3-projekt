@@ -62,18 +62,7 @@ const products =[
         <h3>Kunde inte hämta produkt</h3>
       )}
     </ul>
- 
 
-    
-/* <ul>
-
-        
-          <li key={`products_${product.id}`}> 
-            <ProductItemSmall product={product} />
-             key={`products_${products.id}`}> 
-          </li>
-     
-</ul> */
 
 
 

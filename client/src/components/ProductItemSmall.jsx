@@ -4,7 +4,7 @@ import { } from 'react-router-dom';
 /* import ProductList from './ProductList' */
 import PropTypes from 'prop-types';
 
-function ProductItemSmall({ product  }) {
+function ProductItemSmall({ product }) {
       
 
   return (
@@ -12,8 +12,9 @@ function ProductItemSmall({ product  }) {
       <Link to={`/products/${product.id}`}>
    <h3>{product.title}</h3>
    </Link>
-   
-   <p>{product.body}</p></>
+   <p>{product.body}</p>
+   <p>{product.price} kr</p>
+   </>
 
   );
 

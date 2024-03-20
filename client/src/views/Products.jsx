@@ -1,5 +1,11 @@
+import { useParams, useLocation } from 'react-router-dom';
+import ProductList from '../components/ProductList';
+
 function Products() {
-    return <h2>Products</h2>;
+    
+    console.log(useParams(), useLocation());
+    const location = useLocation();
+  return <ProductList pathname={location.pathname} />;
 }
 
 export default Products;
