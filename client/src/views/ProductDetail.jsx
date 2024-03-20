@@ -1,39 +1,40 @@
 import ProductItemLarge from '../components/ProductItemLarge';
 import { Button } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import RatingForm from '../components/RatingForm';
 import Rating from '../components/Rating';
+import {useState, useEffect} from 'react';
+import { getOne } from '../services/ProductService';
 
 function ProductDetail() {
+const { id } = useParams();
+const [product, setProduct] = useState(null);
 
-
-  const product ={
-    
-    "id": 1,
-    "title": "Ett stilla hav",
-    "body": "Naturposter: Ett stilla hav med solnedgång. Storlek: 50 x 70 cm.",
-    "imageUrl": "http://bild1.com",
-    "price": 550,
-    "createdAt": "2024-03-18T17:34:22.000Z",
-    "updatedAt": "2024-03-19T08:46:45.000Z",
-    "carts": [],
-    "reviews": []
-};
+useEffect(() => {
+  getOne(id).then((product) => setProduct(product));
+}, [id]);
 
 
   const navigate = useNavigate();
 
-  return (
+  // function onRatingAdd(rating) {
+  //   addRating(product.id, rating)
+  //   .then((product) => setProduct(product));
+  // }
+
+  return product ? (
     <div>
       <ProductItemLarge product={product} />
       <Button onClick={() => navigate(-1)}>Tillbaka</Button>
       <Button onClick={() => navigate(`/products/${product.id}/edit`)}>Ändra</Button>
-      <RatingForm />
+      <RatingForm  />
       {product.ratings &&
         product.ratings.map((rating, i) => (
           <Rating key={`rating_${i}`} rating={rating} />
         ))}
     </div>
+  ):(
+    <h3>Kunde inte hämta produkten</h3>
   );
 }
 

@@ -33,7 +33,7 @@ CartField.propTypes = {
 		body: PropTypes.string,
 		price: PropTypes.number,
 		carts: PropTypes.arrayOf(PropTypes.string) // Antagande om vad carts innehåller
-	}).isRequired
+	})
 };
 	
 export default CartField;

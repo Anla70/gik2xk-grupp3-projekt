@@ -27,7 +27,7 @@ ProductItemSmall.propTypes = {
       imageUrl: PropTypes.string,
       createdAt: PropTypes.string,
       updatedAt: PropTypes.string, 
-    
+      /* emptyProduct: PropTypes.string, */
       body: PropTypes.string,
       price: PropTypes.number,
       carts: PropTypes.arrayOf(PropTypes.string) // Antagande om vad carts innehåller

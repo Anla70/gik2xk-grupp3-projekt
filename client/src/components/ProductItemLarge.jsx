@@ -10,7 +10,7 @@ function ProductItemLarge({product}) {
   </>
  );
 }
-
+// Vi har lagt till emptyProduct i propTypes  för att släcka id i ProductEdit.
 ProductItemLarge.propTypes = {
   product: PropTypes.shape({
     id: PropTypes.number,
@@ -18,7 +18,7 @@ ProductItemLarge.propTypes = {
     imageUrl: PropTypes.string,
     createdAt: PropTypes.string,
     updatedAt: PropTypes.string, 
-
+    /* emptyProduct: PropTypes.string, */
     body: PropTypes.string,
     price: PropTypes.number,
     carts: PropTypes.arrayOf(PropTypes.string) // Antagande om vad carts innehåller
