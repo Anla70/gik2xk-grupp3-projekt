@@ -31,6 +31,13 @@ function ProductEdit() {
     }, [id]);  
     
     
+function onChange(e) {
+    const name= e.target.name;
+    const value = e.target.value;
+
+    const newProduct = {...product, [name]: value}; 
+    setProduct(newProduct);
+}
 
 
 
@@ -38,6 +45,7 @@ function ProductEdit() {
     <form>
     <div>
         <TextField 
+        onChange={onChange}
         value={product.title}
         name = "title" 
         id="title" 
@@ -45,6 +53,7 @@ function ProductEdit() {
     </div>
     <div>
         <TextField 
+        onChange={onChange}
         value={product.body}
         multiline 
         minRows={5} 
@@ -53,7 +62,8 @@ function ProductEdit() {
         label="Beskrivning" />
     </div>
     <div>
-        <TextField 
+        <TextField
+        onChange={onChange}
         value = {product.price}
         name="price" 
         id="price" 
@@ -63,6 +73,7 @@ function ProductEdit() {
     </div>
     <div>
     <TextField 
+    onChange={onChange}
     value={product.imageUrl}
     name= 'imageUrl' 
     id='imageUrl' 
