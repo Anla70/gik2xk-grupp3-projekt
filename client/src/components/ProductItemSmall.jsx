@@ -1,59 +1,42 @@
-import { Link, useNavigate } from "react-router-dom";
-import Cart from "./Cart";
-//import UserItemSmall from './UserItemSmall';
-import { toRelativeDateString, truncate } from "../common/formatHelpers";
-import {
-	Box,
-	Button,
-	Card,
-	CardActions,
-	CardContent,
-	CardHeader,
-	CardMedia,
-	Typography,
-} from "@mui/material";
-import placeholderImage from "../assets/placeholder.png";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import { grey } from "@mui/material/colors";
+// import Cart from './Cart';
+import { Link } from 'react-router-dom';
+import { } from 'react-router-dom';
+/* import ProductList from './ProductList' */
+import PropTypes from 'prop-types';
 
-function ProductItemSmall({ product }) {
-	const navigate = useNavigate();
+function ProductItemSmall({ product  }) {
+      
 
-	return (
-		<>
-			<Card variant='outlined' sx={{ mb: 4 }}>
-				<CardHeader
-					title={
-						<Typography variant='h3'>
-							<Link to={`/products/${product.id}`}>{product.title}</Link>
-						</Typography>
-					}
-					subheader={`Skrivet: ${toRelativeDateString(product.createdAt)}`}/>
-				<CardMedia
-					component='img'
-					height='300'
-					image={product.imageUrl || placeholderImage}
-					alt={`Bild till ${product.title}`}
-				/>
-				<CardContent>
-					<Box mb={2}>
-						{product.carts.length > 0 &&
-							product.carts.map((cart) => <Cart key={cart} text={cart} />)}
-					</Box>
+  return (
+   <>
+      <Link to={`/products/${product.id}`}>
+   <h3>{product.title}</h3>
+   </Link>
+   
+   <p>{product.body}</p></>
 
-					<Typography variant='body2'>{truncate(product.title, 500)}</Typography>
-				</CardContent>
-				<CardActions sx={{ display: "flex", justifyContent: "flex-end" }}>
-					<Button
-						onClick={() => navigate(`/products/${product.id}`)}
-						endIcon={<ChevronRightIcon />}
-					>
-						Läs mer
-					</Button>
-				</CardActions>
-			</Card>
-		</>
-	);
+  );
+
 }
 
+ProductItemSmall.propTypes = {
+    product: PropTypes.shape({
+      id: PropTypes.number,
+      title: PropTypes.string,
+      imageUrl: PropTypes.string,
+      createdAt: PropTypes.string,
+      updatedAt: PropTypes.string, 
+    
+      body: PropTypes.string,
+      price: PropTypes.number,
+      carts: PropTypes.arrayOf(PropTypes.string) // Antagande om vad carts innehåller
+    }).isRequired
+};
+
 export default ProductItemSmall;
+
+
+
+
+
+

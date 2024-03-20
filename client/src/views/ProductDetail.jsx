@@ -1,88 +1,41 @@
-import ProductItemLarge from "../components/ProductItemLarge";
-import ReviewForm from "../components/ReviewForm";
-import Review from "../components/Review";
-import { calculateAverageRating } from '../common/RatingHelp';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { Alert, Box, Button, Container, List, Typography } from '@mui/material';
-import { addReview, getOne } from '../services/ProductService';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import EditIcon from '@mui/icons-material/Edit';
-
+import ProductItemLarge from '../components/ProductItemLarge';
+import { Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import RatingForm from '../components/RatingForm';
+import Rating from '../components/Rating';
 
 function ProductDetail() {
+  
 
-	const { id } = useParams();
-  const [product, setProduct] = useState(null);
-	const navigate = useNavigate();
-  const averageRating = product ? calculateAverageRating(product.reviews) : 0;
-  const location = useLocation();
-  const message = location.state?.message;
-  const [open, setOpen] = useState(true);
 
-  useEffect(() => {
-    getOne(id).then((product) => setProduct(product));
-  }, [id]);
+  const product = {
+    
+        id: 1,
+        title: "Ett stilla hav",
+        body: "Naturposter: Ett stilla hav med solnedgång. Storlek: 50 x 70 cm.",
+        imageUrl: "http://bild1.com",
+        price: 550,
+        createdAt: "2024-03-18T17:34:22.000Z",
+        updatedAt: "2024-03-19T08:46:45.000Z",
+        carts: [],
+        reviews: []
+  };
 
- 
-	function onReviewAdd(review) {
-    addReview(product.id, review)
-      .then((review) => getOne(id))
-      .then((product) => setProduct(product));
-  }
 
-  function clearMessage() {
-    window.history.replaceState({}, '');
-  }
-	
-  return product ? (
-    <>
-      {message && open && (
-        <Alert
-          onClose={() => {
-            setOpen(false);
-            clearMessage();
-          }}
-          variant="filled"
-          severity="success">
-          {message}
-        </Alert>
-      )}
-      <Container maxWidth="lg">
-        <ProductItemLarge product={product} />
-        <Box display="flex" justifyContent="space-between" mb={4}>
-          <Button
-            variant="contained"
-            color="secondary"
-            startIcon={<ChevronLeftIcon />}
-            sx={{ mr: 2 }}
-            onClick={() => navigate(-1)}>
-            Tillbaka
-          </Button>
-          <Button
-            startIcon={<EditIcon />}
-            variant="contained"
-            onClick={() => navigate(`/products/${product.id}/edit`)}>
-            Ändra
-          </Button>
-        </Box>
-        <Box>
-          <Typography variant="h3">Review</Typography>
-          <ReviewForm onSave={onReviewAdd} />
-          {product.reviews && (
-            <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
-              {product.reviews.map((review, i) => (
-                <Review key={`review_${i}`} review={review} />
-              ))}
-            </List>
-          )}
-        </Box>
-      </Container>
-    </>
-  ) : (
-    <h3>Kunde inte hämta inlägg</h3>
+  const navigate = useNavigate();
+
+  return (
+    <div>
+      <ProductItemLarge product={product} />
+      <Button onClick={() => navigate(-1)}>Tillbaka</Button>
+      <Button onClick={() => navigate(`/products/${product.id}/edit`)}>Ändra</Button>
+      <RatingForm />
+      {product.ratings &&
+        product.ratings.map((rating, i) => (
+          <Rating key={`rating_${i}`} rating={rating} />
+        ))}
+    </div>
   );
 }
 
 export default ProductDetail;
-

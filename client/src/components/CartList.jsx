@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import Cart from "./Cart";
 import { getAll } from "../services/CartService";
 
-
 function CartList() {
   const [carts, setCarts] = useState([]);
 
@@ -10,7 +9,7 @@ function CartList() {
     getAll().then((carts) => setCarts(carts));
   }, []);
 
-	return (
+  return (
 		<ul>
 			{carts?.length > 0 ? (
 				carts.map((cart) => (

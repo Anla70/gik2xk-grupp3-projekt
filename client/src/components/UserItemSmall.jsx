@@ -1,30 +1,5 @@
-import { Avatar, Box, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
-
-
-  /* **** Ändrat products till carts */
-function UserItemSmall(props) {
-	const { user } = props;
-	return (
-		<>
-          
-			<Link to={`/users/${user.id}/carts`}> 
-				<Box
-					sx={{ maxWidth: "10rem" }}
-					display='flex'
-					alignItems='center'
-					flexWrap='wrap'
-					gap='.7rem'
-					{...props}
-				>
-					<Avatar alt={`Bild på ${user.username}`} src={user.imageUrl} />
-					<Typography variant='h6' component='p'>
-						{user.username}
-					</Typography>
-				</Box>
-			</Link>
-		</>
-	);
+function UserItemSmall() {
+  return  <h2>UserItemSmall</h2> ;
 }
 
 export default UserItemSmall;
