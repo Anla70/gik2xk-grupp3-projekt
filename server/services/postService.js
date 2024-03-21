@@ -47,6 +47,9 @@ async function getByCart(cartId) {
 		return createResponseError(error.status, error.message);
 	}
 }
+
+
+
 // Ska det vara product eller cart? Vad ska hämtas? /* */
 async function getByUser(userId) {
 	try {
@@ -62,16 +65,16 @@ async function getByUser(userId) {
 	}
 }
 
+
+
+
 async function getById(id) {
 	try {
 		const product = await db.product.findOne({
 			where: { id },
 			include: [
-				// db.user,
-				// db.review,
 				{
 					model: db.review,
-					// include: [db.user],
 				},
 			],
 		});
@@ -81,6 +84,8 @@ async function getById(id) {
 		return createResponseError(error.status, error.message);
 	}
 }
+
+
 
 async function addReview (id, review) {
 	if (!id) {
@@ -94,6 +99,9 @@ async function addReview (id, review) {
 		return createResponseError(error.status, error.message);
 	}
 }
+
+
+
 
 // *******   Ska det vara product?
 async function create(product) {
@@ -112,6 +120,9 @@ async function create(product) {
 		return createResponseError(error.status, error.message);
 	}
 }
+
+
+
 
 async function update(product, id) {
 	const invalidData = validate(product, constraints);

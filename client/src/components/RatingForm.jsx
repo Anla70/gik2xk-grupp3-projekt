@@ -4,10 +4,10 @@ function RatingForm() {
   return (
     <form>
       <div>
-        Titel: <input type="text" />
+        Titel på Rating: <input type="text" />
       </div>
       <div>
-        Innehåll: <textarea rows="5"></textarea>
+        Innehåll på Rating: <textarea rows="5"></textarea>
       </div>
       <Button>Spara</Button>
     </form>

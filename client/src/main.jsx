@@ -7,9 +7,9 @@ import ProductEdit from './views/ProductEdit.jsx';
 import Products from './views/Products.jsx';
 import ProductDetail from './views/ProductDetail.jsx';
 import CartView from './views/CartView.jsx';
-
-
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+
+
 
 const router = createBrowserRouter([
   {
@@ -25,6 +25,10 @@ const router = createBrowserRouter([
         element: <ProductEdit />
       },
       {
+        path: '/product/:id/edit',
+        element: <ProductEdit />
+      },
+      {
         path: '/products/',
         element: <Products />
       },
@@ -32,6 +36,10 @@ const router = createBrowserRouter([
       {
         path: '/products/:id',
         element: <ProductDetail />
+      },
+      {
+        path: '/users/:id/products',
+        element: <Products />
       },
       {
         path: '/cart',

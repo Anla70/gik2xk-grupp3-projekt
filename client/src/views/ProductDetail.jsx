@@ -26,7 +26,8 @@ useEffect(() => {
     <div>
       <ProductItemLarge product={product} />
       <Button onClick={() => navigate(-1)}>Tillbaka</Button>
-      <Button onClick={() => navigate(`/products/${product.id}/edit`)}>Ändra</Button>
+      <Button onClick={() => navigate(`/products/${product.id}/edit`)}> Ändra vara</Button>
+   
       <RatingForm  />
       {product.ratings &&
         product.ratings.map((rating, i) => (

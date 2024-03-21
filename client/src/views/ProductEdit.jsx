@@ -1,6 +1,6 @@
 import {useParams, useNavigate } from 'react-router-dom';
 import {useState, useEffect} from 'react';
-import {getOne} from '../services/ProductService';
+import {getOne, create, update, remove} from '../services/ProductService';
 import {TextField, Button} from '@mui/material';
 
 
@@ -10,13 +10,13 @@ function ProductEdit() {
     const { id } = useParams();
     const navigate = useNavigate();
     const emptyProduct= {
-        //id: 0, 
-        title: '', 
+        id: 0, 
+        title: '',
         body: '', 
         price: '', 
         imageUrl: '', 
         //carts: [], 
-        //userId: 2
+        //userId: 2  //Hårdkodad användare för att kunna skapa produkter (skapa en särskild användare för detta senare)
     };
     
     const [product, setProduct]= useState(emptyProduct);
@@ -39,7 +39,24 @@ function onChange(e) {
     setProduct(newProduct);
 }
 
+function onSave() {
+    if(product.id===0){
+        create(product).then((response)=>{
+            console.log(response)
+            navigate('/', {replace: true, state:response});
+        });
+    } else{
+        update(product).then((response)=> 
+            navigate(`/products/${product.id}`, {replace:true, state:response})
+        );
+    }
+}
 
+function onDelete() {
+    remove(product.id).then((response) => 
+    navigate('/', { replace: true, state: response})
+    );
+}
 
     return (
     <form>
@@ -96,11 +113,11 @@ function onChange(e) {
         Tillbaka 
     </Button>
     {id &&  (
-        <Button variant="contained" color="error">
+        <Button onClick={onDelete} variant="contained" color="error">
         Ta bort 
     </Button>
     )}
-      <Button variant="contained" color="success">
+      <Button onClick={onSave} variant="contained" color="success">
         Spara
     </Button>
     </div>
