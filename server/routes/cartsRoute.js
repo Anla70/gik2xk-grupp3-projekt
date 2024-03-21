@@ -1,8 +1,10 @@
 const router = require("express").Router();
 const db = require("../models");
 const postService = require("../services/postService");
+
+
 // **** Vi har ändrat till id/product istället för cart/addProduct
-router.get("/:id/product", (req, res) => {
+router.get("/:id/products", (req, res) => {
 	const id = req.params.id;
 
 	postService.getByCart(id).then((result) => {
@@ -16,12 +18,6 @@ router.get("/", (req, res) => {
 	});
 });
 
-router.post("/:id/addToCart/", (req, res) => {
-	const cart = req.body;
-	db.cart._findOrCreateCartId(cart).then((result) => {
-		res.send(result);
-	});
-});
 
 
 router.post("/", (req, res) => {
@@ -39,6 +35,15 @@ router.delete("/", (req, res) => {
 		.then(() => {
 			res.json(`Produkten togs bort`);
 		});
+});
+
+
+
+router.post("/:id/addToCart/", (req, res) => {
+	const cart = req.body;
+	db.cart._findOrCreateCartId(cart).then((result) => {
+		res.send(result);
+	});
 });
 
 module.exports = router;

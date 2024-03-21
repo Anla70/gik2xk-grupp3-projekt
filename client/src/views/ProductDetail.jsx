@@ -18,8 +18,8 @@ useEffect(() => {
   const navigate = useNavigate();
 
   function onReviewAdd(review) {
-    addReview(product.id, review )
-    .then((review)=>getOne(id))
+    addReview(product.id, review)
+    .then(()=>getOne(id))
     .then((product) => setProduct(product));
    } 
 
@@ -30,10 +30,12 @@ useEffect(() => {
       <Button onClick={() => navigate(`/products/${product.id}/edit`)}> Ändra vara</Button>
    
       <ReviewForm onSave = {onReviewAdd}  />
+      <h2>Andras recensioner</h2>
       {product.reviews &&
         product.reviews.map((review, i) => (
           <Review key={`review_${i}`} review={review} />
         ))}
+        
     </div>
   ):(
     <h3>Kunde inte hämta produkten</h3>

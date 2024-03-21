@@ -100,7 +100,7 @@ function onDelete() {
 
 
     {/* 
-    Vi tycker inte att cart passar in här
+    **** Vi tycker inte att cart passar in här
     <div>
         {product ?.carts ?.length > 0 && 
         product.carts.map((cart) => <Chip key = {cart} label = {cart} />)}
