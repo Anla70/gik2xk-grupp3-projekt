@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 
 function ProductItemSmall({ product }) {
       
-
   return (
    <>
       <Link to={`/products/${product.id}`}>
@@ -25,6 +24,7 @@ ProductItemSmall.propTypes = {
       id: PropTypes.number,
       title: PropTypes.string,
       imageUrl: PropTypes.string,
+      //review: PropTypes.number,
       createdAt: PropTypes.string,
       updatedAt: PropTypes.string, 
       /* emptyProduct: PropTypes.string, */

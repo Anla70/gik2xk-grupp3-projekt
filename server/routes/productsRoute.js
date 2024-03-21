@@ -59,14 +59,14 @@ router.get('/:id/getReview', (req, res) => {
 });
 
 // Eventuellt senare
-// router.put('/:id/review', (req, res) => {
-//   const review = req.body;
-//   const id = review.id;
+router.put('/:id/addReview', (req, res) => {
+  const review = req.body;
+  const id = review.id;
 
-//   postService.update(review, id).then((result) => {
-//     res.status(result.status).json(result.data);
-//   });
-// });
+  postService.update(review, id).then((result) => {
+    res.status(result.status).json(result.data);
+  });
+});
 
 
 

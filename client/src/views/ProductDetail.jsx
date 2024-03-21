@@ -1,10 +1,10 @@
 import ProductItemLarge from '../components/ProductItemLarge';
 import { Button } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
-import RatingForm from '../components/RatingForm';
-import Rating from '../components/Rating';
+import ReviewForm from '../components/ReviewForm';
+import Review from '../components/Review';
 import {useState, useEffect} from 'react';
-import { getOne } from '../services/ProductService';
+import { getOne,addReview } from '../services/ProductService';
 
 function ProductDetail() {
 const { id } = useParams();
@@ -17,10 +17,11 @@ useEffect(() => {
 
   const navigate = useNavigate();
 
-  // function onRatingAdd(rating) {
-  //   addRating(product.id, rating)
-  //   .then((product) => setProduct(product));
-  // }
+  function onReviewAdd(review) {
+    addReview(product.id, review )
+    .then((review)=>getOne(id))
+    .then((product) => setProduct(product));
+   } 
 
   return product ? (
     <div>
@@ -28,10 +29,10 @@ useEffect(() => {
       <Button onClick={() => navigate(-1)}>Tillbaka</Button>
       <Button onClick={() => navigate(`/products/${product.id}/edit`)}> Ändra vara</Button>
    
-      <RatingForm  />
-      {product.ratings &&
-        product.ratings.map((rating, i) => (
-          <Rating key={`rating_${i}`} rating={rating} />
+      <ReviewForm onSave = {onReviewAdd}  />
+      {product.reviews &&
+        product.reviews.map((review, i) => (
+          <Review key={`review_${i}`} review={review} />
         ))}
     </div>
   ):(

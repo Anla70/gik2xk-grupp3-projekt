@@ -2,15 +2,15 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import UserList from './UserList';
 
-function Rating({rating }) {
+// **** Vi har ändrat till review istället för revi
+function Review({review }) {
   return (
     <>
-       <Link to={`/ratings/${rating.id}`}>
-    <h3>{rating.title}</h3>
-    </Link>
-    
+       <Link to={`/reviews/${review.id}`}>
+    <h3>{review.title}</h3>
+    </Link>    
     <p>Skrivet av: {UserList.id}</p>
-      <p>{rating.body}</p>
+      <p>{review.body}</p>
  
  
       
@@ -18,8 +18,8 @@ function Rating({rating }) {
   );
 }
 
-Rating.propTypes = {
-  rating: PropTypes.shape({
+Review.propTypes = {
+  review: PropTypes.shape({
     id: PropTypes.number,
     title: PropTypes.string,
     body: PropTypes.string,
@@ -29,4 +29,5 @@ Rating.propTypes = {
   }).isRequired
 };
 
-export default Rating;
+  
+export default Review;

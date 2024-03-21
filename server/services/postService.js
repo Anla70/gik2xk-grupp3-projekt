@@ -146,6 +146,10 @@ async function update(product, id) {
 		return createResponseError(error.status, error.message);
 	}
 }
+
+
+
+
 async function destroy(id) {
 	if (!id) {
 		return createResponseError(422, "Id är obligatoriskt");
@@ -159,6 +163,9 @@ async function destroy(id) {
 		return createResponseError(error.status, error.message);
 	}
 }
+
+
+
 // *******************
 function _formatProduct(product) {
 	const cleanProduct = {

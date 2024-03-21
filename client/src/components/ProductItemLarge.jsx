@@ -18,10 +18,12 @@ ProductItemLarge.propTypes = {
     imageUrl: PropTypes.string,
     createdAt: PropTypes.string,
     updatedAt: PropTypes.string, 
+    //review: PropTypes.number,
     /* emptyProduct: PropTypes.string, */
     body: PropTypes.string,
     price: PropTypes.number,
     carts: PropTypes.arrayOf(PropTypes.string) // Antagande om vad carts innehåller
   }).isRequired
 };
+
 export default ProductItemLarge;
