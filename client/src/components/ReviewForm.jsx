@@ -15,7 +15,7 @@ function ReviewForm({onSave}) {
         label='Rubrik'
         name='title'
         id='title'
-        
+        margin='normal'
         />
       </div>
 
