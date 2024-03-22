@@ -1,9 +1,13 @@
 import PropTypes from 'prop-types';
 import { } from 'react-router-dom';
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Button } from '@mui/material';
+/* import { useState } from 'react'; */
+
 
 function ProductItemLarge({product}) {
+  const addToCart = addToCart;
+  
   return  (
   <>
   
@@ -11,8 +15,8 @@ function ProductItemLarge({product}) {
   <p>{product.body}</p>  
   <p>{product.price} kr</p>
 
-  <Button startIcon={<AddShoppingCartIcon />}color="primary" aria-label="add to shopping cart">
-  </Button>
+  <Button onClick ={addToCart} startIcon={<ShoppingCartIcon />}color="primary" aria-label="add to shopping cart">Lägg till i kundkorg</Button>
+ 
  
   </>
   

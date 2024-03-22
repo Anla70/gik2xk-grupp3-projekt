@@ -4,6 +4,11 @@ import PropTypes from 'prop-types';
 
 
 function Cart({text}) {
+
+
+
+
+
   return (
 		<Link to={`/carts/${text}/products`}>
 			<Chip label={text}></Chip>
@@ -19,7 +24,6 @@ Cart.propTypes = {
 		imageUrl: PropTypes.string,
 		createdAt: PropTypes.string,
 		updatedAt: PropTypes.string, 
-	
 		body: PropTypes.string,
 		price: PropTypes.number,
 		carts: PropTypes.arrayOf(PropTypes.string) // Antagande om vad carts innehåller

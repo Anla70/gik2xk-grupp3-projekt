@@ -46,4 +46,21 @@ router.post("/:id/addToCart/", (req, res) => {
 	});
 });
 
+router.post("/:id/addToCart/", (req, res) => {
+	const cart = req.body;
+	db.cart._addProductToCart(cart).then((result) => {
+		res.send(result);
+	});
+});
+
+
+
+
+router.post("/addToCart/", (req, res) => {
+	const  { productId, cartId } = req.body;
+	cartService.addToCart(productId, cartId).then((result) => {
+		res.status(result.status).json(result.data);
+	});
+});
+
 module.exports = router;

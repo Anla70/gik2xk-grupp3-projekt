@@ -102,6 +102,23 @@ async function addReview (id, review) {
 
 
 
+// async function addToCart (id, cart) {
+// 	if (!id) {
+// 		return createResponseError(422, "Id är obligatoriskt");
+// 	}
+// 	try {
+// 		cart.userId = id;
+// 		const newCart= await db.cart.create(cart);
+// 		return createResponseSuccess(newCart );
+// 	} catch (error) {
+// 		return createResponseError(error.status, error.message);
+// 	}
+// }
+
+
+
+
+
 
 // *******   Ska det vara product?
 async function create(product) {
@@ -249,7 +266,7 @@ async function _addProductToCart(product, carts) {
 
 module.exports = {
 	_findOrCreateCartId,
-	_addProductToCart,
+	//_addProductToCart,
 	getByCart,
 	getByUser,
 	addReview,
