@@ -1,8 +1,11 @@
 import {useParams, useNavigate } from 'react-router-dom';
 import {useState, useEffect} from 'react';
 import {getOne, create, update, remove} from '../services/ProductService';
-import {TextField, Button} from '@mui/material';
 
+import { Box, Button, Container, TextField, Typography } from "@mui/material";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import DeleteIcon from "@mui/icons-material/Delete";
+import SaveIcon from "@mui/icons-material/Save";
 
   
 
@@ -58,72 +61,98 @@ function onDelete() {
     );
 }
 
-    return (
-    <form>
-    <div>
-        <TextField 
-        onChange={onChange}
-        value={product.title}
-        name = "title" 
-        id="title" 
-        label = "Titel" />
-    </div>
-    <div>
-        <TextField 
-        onChange={onChange}
-        value={product.body}
-        multiline 
-        minRows={5} 
-        name="body" 
-        id="body" 
-        label="Beskrivning" />
-    </div>
-    <div>
-        <TextField
-        onChange={onChange}
-        value = {product.price}
-        name="price" 
-        id="price" 
-        label="Pris" 
-        type='number' 
-        />
-    </div>
-    <div>
-    <TextField 
-    onChange={onChange}
-    value={product.imageUrl}
-    name= 'imageUrl' 
-    id='imageUrl' 
-    label = 'Sökväg till bild'
-    />
-    </div>
+return (
+    <Container maxWidth='lg'>
+        <Typography variant='h4' component='h2'>
+            {product.id ? "Ändra vara" : "Skapa vara"}
+        </Typography>
 
+        <Box mt={4}>
+            <form>
+                <Box>
+                    <TextField
+                        fullWidth
+                        margin='normal'
+                        onChange={onChange}
+                        value={product.title}
+                        name='title'
+                        id='title'
+                        label='Titel'
+                    />
+                </Box>
+                <Box>
+                    <TextField
+                        fullWidth
+                        margin='normal'
+                        onChange={onChange}
+                        value={product.body}
+                        multiline
+                        minRows={5}
+                        name='body'
+                        id='body'
+                        label='Beskrivning'
+                    />
+                </Box>
+                <Box>
+                    <TextField
+                        fullWidth
+                        margin='normal'
+                        onChange={onChange}
+                        value={product.price}
+                        name='price'
+                        id='price'
+                        label='Pris'
+                        type='number'
+                    />
+                </Box>
+                <Box>
+                    <TextField
+                        fullWidth
+                        margin='normal'
+                        onChange={onChange}
+                        value={product.imageUrl}
+                        name='imageUrl'
+                        id='imageUrl'
+                        label='Sökväg till bild'
+                    />
+                </Box>
 
-    {/* 
-    **** Vi tycker inte att cart passar in här
-    <div>
-        {product ?.carts ?.length > 0 && 
-        product.carts.map((cart) => <Chip key = {cart} label = {cart} />)}
-    </div>
-    <div>
-        <CartField />
-    </div> */}
-    <div>
-    <Button variant="contained" onClick={() => navigate(-1)}>
-        Tillbaka 
-    </Button>
-    {id &&  (
-        <Button onClick={onDelete} variant="contained" color="error">
-        Ta bort 
-    </Button>
-    )}
-      <Button onClick={onSave} variant="contained" color="success">
-        Spara
-    </Button>
-    </div>
-    </form>
-    );
+                <Box display='flex' mt={2}>
+                    <Box flexGrow={1}>
+                        <Button
+                            startIcon={<ChevronLeftIcon />}
+                            sx={{ mr: 1 }}
+                            variant='contained'
+                            onClick={() => navigate(-1)}
+                        >
+                            Tillbaka
+                        </Button>
+                        {id && (
+                            <Button
+                                startIcon={<DeleteIcon />}
+                                onClick={onDelete}
+                                variant='contained'
+                                color='error'
+                            >
+                                Ta bort
+                            </Button>
+                        )}
+                    </Box>
+                    <Button
+                        startIcon={<SaveIcon />}
+                        onClick={onSave}
+                        variant='contained'
+                        color='success'
+                    >
+                        Spara
+                    </Button>
+                </Box>
+            </form>
+        </Box>
+    </Container>
+);
 }
+
 
 
 export default ProductEdit;

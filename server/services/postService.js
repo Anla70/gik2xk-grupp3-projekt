@@ -66,8 +66,6 @@ async function getByUser(userId) {
 }
 
 
-
-
 async function getById(id) {
 	try {
 		const product = await db.product.findOne({
@@ -84,7 +82,6 @@ async function getById(id) {
 		return createResponseError(error.status, error.message);
 	}
 }
-
 
 
 async function addReview (id, review) {

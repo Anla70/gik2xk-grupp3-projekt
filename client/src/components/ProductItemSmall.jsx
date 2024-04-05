@@ -24,9 +24,10 @@ function ProductItemSmall({ product }) {
 				}
 			/>
 	<CardContent>
-			<CardMedia
-				height='400'
-				sx={{ borderRadius: 2 }}
+			<CardMedia 
+				// height="400"
+				
+				sx={{ borderRadius: 2  }}
 				component='img'
 				image={product.imageUrl}
 			/>
