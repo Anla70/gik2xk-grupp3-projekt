@@ -3,20 +3,41 @@ import { Link } from 'react-router-dom';
 import { } from 'react-router-dom';
 /* import ProductList from './ProductList' */
 import PropTypes from 'prop-types';
+import {
+	Card,
+	CardMedia,
+	CardHeader,
+	CardContent,
+
+	Typography,
+} from "@mui/material";
 
 function ProductItemSmall({ product }) {
       
   return (
-   <>
-      <Link to={`/products/${product.id}`}>
-   <h3>{product.title}</h3>
-   </Link>
-   <p>{product.body}</p>
-   <p>{product.price} kr</p>
-   </>
+		<Card variant='outlined' sx={{ mb: 4, ml:2 }}>
+			<CardHeader
+				title={
+					<Typography variant='h3'>
+						<Link to={`/products/${product.id}`}> {product.title}</Link>
+					</Typography>
+				}
+			/>
+	<CardContent>
+			<CardMedia
+				height='400'
+				sx={{ borderRadius: 2 }}
+				component='img'
+				image={product.imageUrl}
+			/>
 
-  );
-
+		
+				{" "}
+				<Typography variant='body1'>{product.body} </Typography>
+				<Typography variant='body2'>{product.price} kr </Typography>{" "}
+			</CardContent>
+		</Card>
+	);
 }
 
 ProductItemSmall.propTypes = {

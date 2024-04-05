@@ -1,37 +1,90 @@
 import PropTypes from 'prop-types';
-import { } from 'react-router-dom';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { Button } from '@mui/material';
-/* import { useState } from 'react'; */
-
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import {
+	Button,
+	TextField,
+	Box,
+	CardMedia,
+	Paper,
+	Typography,
+	Rating,
+} from "@mui/material";
+import { addToCart } from "../services/CartService";
+import { useState } from "react";
+import { calculateAverageRating } from "../common/RatingHelp";
 
 function ProductItemLarge({product}) {
-  const addToCart = addToCart;
   
-  return  (
-  <>
+  // const addToCart = addToCart;
   
-  <h3>{product.title}</h3>
-  <p>{product.body}</p>  
-  <p>{product.price} kr</p>
+  const averageRating = product ? calculateAverageRating(product.reviews) : 0;
+	const [amount, setAmount] = useState(1); // Startar med 1 produkt som standard
+	const hardcodedCartId = 1; // Exempel på hårdkodat varukorgs-ID
+	const userId = 1; // Exempel på hårdkodat användar-ID
 
-  <Button onClick ={addToCart} startIcon={<ShoppingCartIcon />}color="primary" aria-label="add to shopping cart">Lägg till i kundkorg</Button>
- 
- 
-  </>
-  
- );
+  const handleAddToCart = async () => {
+    try {
+      await addToCart(hardcodedCartId, product.id, amount, userId);
+      alert("Produkt tillagd i varukorgen!");
+    } catch (error) {
+      console.error("Could not add product to cart", error);
+      alert("Misslyckades med att lägga till produkt i varukorgen.");
+    }
+  };
+
+	return (
+		<Paper sx={{ my: 4, p: 4, borderRadius: 2 }} elevation={3}>
+			<Box sx={{ mb: 2 }}>
+				<Typography variant='h2'> {product.title} </Typography>
+				<Rating name='read-only' value={averageRating} readOnly />
+				<Typography variant='body1'> {product.body} </Typography>
+				<Typography variant='p'> {product.price} kr</Typography>
+			</Box>
+
+			<Box>
+				<TextField
+					label='Antal'
+					type='number'
+					InputLabelProps={{
+						shrink: true,
+					}}
+					variant='outlined'
+					value={amount}
+					onChange={(e) => setAmount(Number(e.target.value))}
+					size='small'
+					sx={{ mb: 1, width: 1 / 6 }}
+				/>
+
+				<Button
+					sx={{ ml: 1.5 }}
+					onClick={handleAddToCart}
+					startIcon={<AddShoppingCartIcon />}
+					color='primary'
+				>
+					Lägg till i varukorgen
+				</Button>
+			</Box>
+
+			<CardMedia
+				sx={{ borderRadius: 2 }}
+				component='img'
+				image={product.imageUrl}
+			/>
+     
+		</Paper>
+	);
 }
+
 // Vi har lagt till emptyProduct i propTypes  för att släcka id i ProductEdit.
 ProductItemLarge.propTypes = {
   product: PropTypes.shape({
+    reviews: PropTypes.arrayOf(PropTypes.number),
     id: PropTypes.number,
     title: PropTypes.string,
     imageUrl: PropTypes.string,
     createdAt: PropTypes.string,
     updatedAt: PropTypes.string, 
     //review: PropTypes.number,
-    /* emptyProduct: PropTypes.string, */
     body: PropTypes.string,
     price: PropTypes.number,
     carts: PropTypes.arrayOf(PropTypes.string) // Antagande om vad carts innehåller
