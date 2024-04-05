@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types';
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+//import zoom_in from '@mui/icons-material/Zoom_in';
+//import {zoom-inIcon} from '@mui/icons-material/Zoom_in';
 import {
 	Button,
 	TextField,
@@ -22,18 +24,35 @@ function ProductItemLarge({product}) {
 	const hardcodedCartId = 1; // Exempel på hårdkodat varukorgs-ID
 	const userId = 1; // Exempel på hårdkodat användar-ID
 
-  const handleAddToCart = async () => {
-    try {
-      await addToCart(hardcodedCartId, product.id, amount, userId);
-      alert("Produkt tillagd i varukorgen!");
-    } catch (error) {
-      console.error("Could not add product to cart", error);
-      alert("Misslyckades med att lägga till produkt i varukorgen.");
-    }
-  };
+  // const handleAddToCart = async () => {
+  //   try {
+  //     await addToCart(hardcodedCartId, product.id, amount, userId);
+  //     alert("Produkt tillagd i varukorgen!");
+  //   } catch (error) {
+  //     console.error("Could not add product to cart", error);
+  //     alert("Misslyckades med att lägga till produkt i varukorgen.");
+  //   }
+  // };
+
+	const handleAddToCart = async () => {
+		try {
+			const cartItem = await addToCart(
+				hardcodedCartId,
+				product.id,
+				amount,
+				userId
+			);
+			alert("Produkt tillagd i varukorgen!");
+		} catch (error) {
+			console.error("Could not add product to cart", error);
+			alert("Misslyckades med att lägga till produkt i varukorgen.");
+		}
+	};
+
+    
 
 	return (
-		<Paper sx={{ my: 4, p: 4, borderRadius: 2 }} elevation={3}>
+		<Paper sx={{ my: 4, p: 4, borderRadius: 2, width: '600px', display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }} elevation={3}>
 			<Box sx={{ mb: 2 }}>
 				<Typography variant='h2'> {product.title} </Typography>
 				<Rating name='read-only' value={averageRating} readOnly />
@@ -41,7 +60,9 @@ function ProductItemLarge({product}) {
 				<Typography variant='p'> {product.price} kr</Typography>
 			</Box>
 
-			<Box>
+      {/* <span class="material-icons md-24">zoom_in</span> */}
+
+			<Box sx={{ my: 4, p: 4, borderRadius: 2, width: '600px', display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
 				<TextField
 					label='Antal'
 					type='number'
@@ -64,12 +85,13 @@ function ProductItemLarge({product}) {
 					Lägg till i varukorgen
 				</Button>
 			</Box>
-
+      <Box sx={{ alignSelf: 'flex-start'}}>
 			<CardMedia
-				sx={{ borderRadius: 2 }}
+				sx={{ borderRadius: 2, maxWidth:'100%', height: 'auto'}}
 				component='img'
 				image={product.imageUrl}
 			/>
+      </Box>
      
 		</Paper>
 	);

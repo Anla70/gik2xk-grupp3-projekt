@@ -2,7 +2,7 @@ import { getAll } from '../services/ProductService';
 import ProductItemSmall from './ProductItemSmall';
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-
+import Stack from "@mui/material/Stack";
 function ProductList({pathname}) {
   const [products, setProducts] = useState([]);
 
@@ -13,20 +13,23 @@ function ProductList({pathname}) {
   }, [pathname]);
 
 
-  return  (
-    <ul>
-      {products?.length > 0 ? (
-        products.map((product) => (
-          <li key={`products_${product.id}`}>
-            <ProductItemSmall product={product} />
-          </li>
-        ))
-      ) : (
-        <h3>Kunde inte hämta produkt</h3>
-      )}
-    </ul>
-
-  );
+	return (
+		<>
+			<ul>
+				<Stack direction={{ xs: "column", sm: "row" }} spacing={{ md: 4 }}>
+					{products?.length > 0 ? (
+						products.map((product) => (
+							<li key={`products_${product.id}`}>
+								<ProductItemSmall product={product} />
+							</li>
+						))
+					) : (
+						<h3>Kunde inte hämta produkt</h3>
+					)}
+				</Stack>{" "}
+			</ul>
+		</>
+	);
 }
 ProductList.propTypes = {
   pathname: PropTypes.shape({

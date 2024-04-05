@@ -15,24 +15,25 @@ import {
 function ProductItemSmall({ product }) {
       
   return (
-		<Card variant='outlined' sx={{ mb: 4, ml:2 }}>
+		<Card variant='outlined' sx={{ mb: 4, ml:2, width:'300px', height: '400px' }}>
 			<CardHeader
 				title={
-					<Typography variant='h3'>
+					<Typography variant='h4'>
 						<Link to={`/products/${product.id}`}> {product.title}</Link>
 					</Typography>
 				}
 			/>
-	<CardContent>
+		<CardContent>
 			<CardMedia 
-				// height="400"
+				height="200"
 				
 				sx={{ borderRadius: 2  }}
 				component='img'
 				image={product.imageUrl}
+				alt={`Bild till ${product.title}`}
 			/>
 
-		
+			
 				{" "}
 				<Typography variant='body1'>{product.body} </Typography>
 				<Typography variant='body2'>{product.price} kr </Typography>{" "}

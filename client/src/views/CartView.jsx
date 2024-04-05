@@ -2,9 +2,12 @@ import { useEffect, useState } from "react";
 import { fetchCart } from "../services/CartService";
 import { Button, Box, Typography, List, Paper } from "@mui/material/";
 import { grey } from "@mui/material/colors";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import { useNavigate } from 'react-router-dom';
 
 function CartView() {
 	const [cartItems, setCartItems] = useState([]);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		const fetchAndSetCartItems = async () => {
@@ -60,7 +63,15 @@ function CartView() {
 			</Box>
 			<Box
 				sx={{ display: "flex", justifyContent: "space-between", mt: 2, pb: 1 }}
-			>
+			>	<Button
+						variant='contained'
+						color='secondary'
+						startIcon={<ChevronLeftIcon />}
+						sx={{ mr: 2 }}
+						onClick={() => navigate(-1)}
+					>
+						Tillbaka till butiken
+					</Button>
 				<Button
 					sx={{ ml: 2 }}
 					variant='contained'
@@ -69,6 +80,7 @@ function CartView() {
 				>
 					Skicka beställning
 				</Button>
+			
 				<Typography sx={{ mr: 2 }} variant='h6'>
 					Totalt: {calculateTotal(cartItems)} kr
 				</Typography>

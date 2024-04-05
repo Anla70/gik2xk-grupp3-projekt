@@ -91,7 +91,7 @@ router.post("/addProduct", async (req, res) => {
 		}
 
 		// Hitta en befintlig varukorg eller skapa en ny
-		let cart = await db.cart.findOne({ where: { userId } });
+		let cart = await db.cart.findOne({ where: { userId} });
 		if (!cart) {
 			cart = await db.cart.create({ userId});
 		}
