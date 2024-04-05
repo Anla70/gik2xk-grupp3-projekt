@@ -60,7 +60,7 @@ export async function addToCart(cartId, productId, amount) {
 			throw new Error("Failed to add product to cart");
 		}
 	} catch (error) {
-		console.error("Could not add product to cart", error);
+		console.error("Varan finns redan i din varukorg", error);
 		throw error;
 	}
 }

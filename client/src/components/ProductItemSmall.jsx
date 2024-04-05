@@ -15,7 +15,10 @@ import {
 function ProductItemSmall({ product }) {
       
   return (
-		<Card variant='outlined' sx={{ mb: 4, ml:2, width:'300px', height: '400px' }}>
+		<Card variant='outlined' 	
+			sx={{
+			height: "450px"
+			}} >
 			<CardHeader
 				title={
 					<Typography variant='h4'>
@@ -35,7 +38,7 @@ function ProductItemSmall({ product }) {
 
 			
 				{" "}
-				<Typography variant='body1'>{product.body} </Typography>
+				<Typography variant='body1'my={2}>{product.body} </Typography>
 				<Typography variant='body2'>{product.price} kr </Typography>{" "}
 			</CardContent>
 		</Card>

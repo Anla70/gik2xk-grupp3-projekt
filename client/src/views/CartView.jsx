@@ -53,7 +53,7 @@ function CartView() {
 							/>
 
 							<Typography variant='body1'>
-								Vara: {item.title || "Produktnamn saknas"}, Pris:{" "}
+								Produkt: {item.title || "Produktnamn saknas"}, Pris:{" "}
 								{item.price || 0} kr, Antal: {item.cartRow?.amount || 1},
 								Totalt: {(item.cartRow?.amount || 1) * (item.price || 0)} kr
 							</Typography>

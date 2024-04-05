@@ -33,7 +33,7 @@ router.delete("/", (req, res) => {
 			where: { id: req.body.id },
 		})
 		.then(() => {
-			res.json(`Produkten togs bort`);
+			res.json(`Varukorgen togs bort`);
 		});
 });
 
@@ -73,12 +73,7 @@ router.get("/:id", async (req, res) => {
 
 
 
-// router.post("/addToCart/", (req, res) => {
-// 	const  { productId, cartId } = req.body;
-// 	cartService.addToCart(productId, cartId).then((result) => {
-// 		res.status(result.status).json(result.data);
-// 	});
-// });
+
 router.post("/addProduct", async (req, res) => {
 	const { productId, amount } = req.body;
 	const userId = 1;
@@ -105,16 +100,16 @@ router.post("/addProduct", async (req, res) => {
 			include: [
 				{
 					model: db.product,
-					as: "products", // Använd samma alias som definierat i associationen
+					as: "products", 
 				},
 			],
 		});
 		res.status(201).json({
 			message: "Produkten har lagts till i varukorgen",
-			cartItem: cartItem, // Inkluderar produktinformation
+			cartItem: cartItem, 
 		});
 	} catch (error) {
-		console.error("Fel vid tillägg av produkt till varukorgen:", error);
+		console.error("Produkten ligger redan i varukorgen:", error);
 		res.status(500).json({
 			message: "Internt serverfel vid tillägg av produkt till varukorgen",
 		});
