@@ -134,8 +134,8 @@ function ProductItemLarge({product}) {
 	const userId = 1; // Exempel på hårdkodat användar-ID
 	const cartSet = new Set();
 
-  const handleAddToCart = async (hardcodedCartId) => {
-	if (cartSet.has()){
+  const handleAddToCart = async (productID) => {
+	if (cartSet.has(productId)){
 		alert("Produkten finns redan i varukorgen")
 		return;
 	}
@@ -147,7 +147,8 @@ function ProductItemLarge({product}) {
     //   alert("Produkten ligger redan i din varukorg.");
     }
   };
-  
+
+// ORIGNAL-KOD
 //   const handleAddToCart = async () => {
 // 	try {
 // 		const cartItem = await addToCart(
