@@ -42,11 +42,6 @@ Object.keys(db).forEach((modelName) => {
 	}
 });
 
-/* db.user.belongsTo(db.cart, { foreignKey: { allowNull: false } });
-db.user.hasMany(db.cart, {
-	allowNull: false,
-	onDelete: "CASCADE",
-}); */
 
 db.cart.belongsTo(db.user, { foreignKey: { allowNull: false } });
 db.user.hasMany(db.cart, {
@@ -55,9 +50,9 @@ db.user.hasMany(db.cart, {
 });
 
 
-
 db.product.belongsToMany(db.cart, { through: db.cartRow });
 db.cart.belongsToMany(db.product, { through: db.cartRow });
+
 
 db.review.belongsTo(db.product);
 db.product.hasMany(db.review, {

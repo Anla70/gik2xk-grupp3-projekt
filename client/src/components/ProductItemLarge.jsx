@@ -132,21 +132,21 @@ function ProductItemLarge({product}) {
 	const [amount, setAmount] = useState(1); // Startar med 1 produkt som standard
 	const hardcodedCartId = 1; // Exempel på hårdkodat varukorgs-ID
 	const userId = 1; // Exempel på hårdkodat användar-ID
-	const cartSet = new Set();
+	//const cartSet = new Set();
 
-  const handleAddToCart = async (productID) => {
-	if (cartSet.has(productId)){
-		alert("Produkten finns redan i varukorgen")
-		return;
-	}
-    try {
-      await addToCart(hardcodedCartId, product.id, amount, userId);
-      alert("Produkt tillagd i varukorgen!");
-    } catch (error) {
-      console.error("Could not add product to cart", error);
-    //   alert("Produkten ligger redan i din varukorg.");
-    }
-  };
+//   const handleAddToCart = async (productID) => {
+// 	if (cartSet.has(productId)){
+// 		alert("Produkten finns redan i varukorgen")
+// 		return;
+// 	}
+//     try {
+//       await addToCart(hardcodedCartId, product.id, amount, userId);
+//       alert("Produkt tillagd i varukorgen!");
+//     } catch (error) {
+//       console.error("Could not add product to cart", error);
+//     //   alert("Produkten ligger redan i din varukorg.");
+//     }
+//   };
 
 // ORIGNAL-KOD
 //   const handleAddToCart = async () => {
@@ -163,6 +163,15 @@ function ProductItemLarge({product}) {
 // 		alert("Misslyckades med att lägga till produkt i varukorgen.");
 // 	}
 // };
+const handleAddToCart = async () => {
+    try {
+      await addToCart(hardcodedCartId, product.id, amount, userId);
+      alert("Produkt tillagd i varukorgen!");
+    } catch (error) {
+      console.error("Could not add product to cart", error);
+      alert("Produkten ligger redan i din varukorg.");
+    }
+};
 
 
   const navigate = useNavigate();

@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const db = require("../models");
 const validate = require("validate.js");
-const postService = require("../services/postService");
+const productService = require("../services/productService");
 
 const constraints = {
 	email: {
@@ -24,21 +24,21 @@ const constraints = {
 
 router.get("/:id/getCart/", (req, res) => {
 	const id = req.params.id;
-	postService.getByUser(id).then((result) => {
+	productService.getByUser(id).then((result) => {
 		res.status(result.status).json(result.data);
 	});
 });
 
 router.get("/:id/", (req, res) => {
 	const id = req.params.id;
-	postService.getById(id).then((result) => {
+	productService.getById(id).then((result) => {
 		res.status(result.status).json(result.data);
 	});
 });
 
 router.get("/:id/getProduct/", (req, res) => {
 	const id = req.params.id;
-	postService.getByUser(id).then((result) => {
+	productService.getByUser(id).then((result) => {
 		res.status(result.status).json(result.data);
 	});
 });

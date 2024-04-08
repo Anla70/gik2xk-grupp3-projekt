@@ -5,16 +5,10 @@ import PropTypes from 'prop-types';
 
 function Cart({text}) {
 
-
-
-
-
   return (
 		<Link to={`/carts/${text}/products`}>
 			<Chip label={text}></Chip>
 		</Link> 
-
-
 );
 }
 Cart.propTypes = {
@@ -30,6 +24,4 @@ Cart.propTypes = {
 	}).isRequired
 };
 	
-
-
 export default Cart;

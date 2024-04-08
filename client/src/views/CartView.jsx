@@ -82,7 +82,7 @@ function CartView() {
 				</Button>
 			
 				<Typography sx={{ mr: 2 }} variant='h6'>
-					Totalt: {calculateTotal(cartItems)} kr
+					Totalt att betala: {calculateTotal(cartItems)} kr
 				</Typography>
 			</Box>
 		</Paper>

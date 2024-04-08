@@ -17,9 +17,7 @@ function ProductEdit() {
         title: '',
         body: '', 
         price: '', 
-        imageUrl: '', 
-        //carts: [], 
-        //userId: 2  //Hårdkodad användare för att kunna skapa produkter (skapa en särskild användare för detta senare)
+        imageUrl: ''
     };
     
     const [product, setProduct]= useState(emptyProduct);
@@ -37,7 +35,6 @@ function ProductEdit() {
 function onChange(e) {
     const name= e.target.name;
     const value = e.target.value;
-
     const newProduct = {...product, [name]: value}; 
     setProduct(newProduct);
 }
