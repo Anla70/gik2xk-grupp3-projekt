@@ -25,7 +25,6 @@ function Home() {
 					{message}
 				</Alert>
 			)}
-	
 				<Grid component='section' item xs={12} md={8}>
 					<Paper elevation={3} sx={{ p: 2, mt: 4, borderRadius: 2 }}>
 						<Typography variant='h2'>Våra posters</Typography>

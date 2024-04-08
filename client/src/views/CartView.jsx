@@ -12,11 +12,11 @@ function CartView() {
 	useEffect(() => {
 		const fetchAndSetCartItems = async () => {
 			try {
-				const userId = 1; // Exempelanvändar-ID, anpassa efter dina behov
+				const userId = 1; // Exempel användar-ID
 				const fetchedCartItems = await fetchCart(userId);
-				console.log("Fetched Cart Items:", fetchedCartItems); // Logga för att inspektera strukturen
+				console.log("Fetched Cart Items:", fetchedCartItems); 
 				if (fetchedCartItems.length > 0) {
-					setCartItems(fetchedCartItems[0].products || []); // Antag att första objektet innehåller en 'products'-nyckel
+					setCartItems(fetchedCartItems[0].products || []); 
 				}
 			} catch (error) {
 				console.error("Failed to fetch cart items:", error);

@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import UserList from './UserList';
 import { Link } from 'react-router-dom';
 
-// **** Ska Link vara kvar?
 function UserItemSmall({user}) {
   return (
     <>
@@ -12,9 +11,7 @@ function UserItemSmall({user}) {
     </Link>
   </>
 
-
-  );
-  
+  );  
 
 }
 UserItemSmall.propTypes = {
@@ -24,10 +21,8 @@ UserItemSmall.propTypes = {
     password: PropTypes.string,
     createdAt: PropTypes.string,
     updatedAt: PropTypes.string, 
-  
     firstName: PropTypes.string,
     lastName: PropTypes.string,
-   
   }).isRequired
 };
 export default UserItemSmall;

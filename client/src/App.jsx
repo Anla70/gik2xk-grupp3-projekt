@@ -1,29 +1,7 @@
 import { Link, Outlet } from 'react-router-dom';
 import { Box, AppBar, Toolbar, Typography, Button,Container } from '@mui/material';
 import Tooltip from "@mui/material/Tooltip";
-// function App() {
-//   return (
-//     <>
-//     <Box sx={{ flexGrow: 1 }}>
-//       <AppBar position="static">
-//         <Toolbar>
-//           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-//             <Link to="/">Webbshop</Link>
-//           </Typography>
-//           <Button color="inherit">
-//             <Link to="/products/new">Skapa ny produkt</Link>
-//           </Button>
 
-//           <Button color='inherit'>
-// 							<Link to='/cart'>Varukorg</Link>
-// 				</Button>
-//         </Toolbar>
-//       </AppBar>
-//     </Box>
-//     <Outlet />
-//   </>
-// );
-// }
 
 function App() {
   return (
@@ -58,6 +36,5 @@ function App() {
     </>
   );
 }
-
 
 export default App;

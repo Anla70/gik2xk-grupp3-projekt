@@ -1,19 +1,18 @@
 import {useParams, useNavigate } from 'react-router-dom';
 import {useState, useEffect} from 'react';
 import {getOne, create, update, remove} from '../services/ProductService';
-
 import { Box, Button, Container, TextField, Typography } from "@mui/material";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SaveIcon from "@mui/icons-material/Save";
-
   
 
 function ProductEdit() {
+    
     const { id } = useParams();
     const navigate = useNavigate();
     const emptyProduct= {
-        id: 0, 
+        id: '', 
         title: '',
         body: '', 
         price: '', 
@@ -21,8 +20,7 @@ function ProductEdit() {
     };
     
     const [product, setProduct]= useState(emptyProduct);
-    
-    
+
     useEffect(() => {
         if (id) {
             getOne(id).then((product) => setProduct(product));
@@ -30,7 +28,6 @@ function ProductEdit() {
             setProduct(emptyProduct);
         }
     }, [id]);  
-    
     
 function onChange(e) {
     const name= e.target.name;
@@ -63,7 +60,6 @@ return (
         <Typography variant='h4' component='h2'>
             {product.id ? "Ändra vara" : "Skapa vara"}
         </Typography>
-
         <Box mt={4}>
             <form>
                 <Box>
@@ -113,7 +109,6 @@ return (
                         label='Sökväg till bild'
                     />
                 </Box>
-
                 <Box display='flex' mt={2}>
                     <Box flexGrow={1}>
                         <Button

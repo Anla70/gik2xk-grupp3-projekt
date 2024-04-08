@@ -27,7 +27,6 @@ async function getAll() {
 		return createResponseSuccess(
 			allProducts.map((product) => _formatProduct(product))
 		);
-		// return createResponseSuccess(allProducts);
 	} catch (error) {
 		return createResponseError(error.status, error.message);
 	}
@@ -37,7 +36,6 @@ async function getByCart(cartId) {
 	try {
 		const cart = await db.cart.findOne({ where: { id: cartId } });
 		const allProducts = await cart.getProducts({
-			// include: [db.user, db.cart],
 		});
 		/* Om allt blev bra, returnera allPosts */
 		return createResponseSuccess(
@@ -55,7 +53,7 @@ async function getByUser(userId) {
 	try {
 		const user = await db.user.findOne({ where: { id: userId } });
 		const allProducts =
-			await user.getProducts(/*{ include: [db.user, db.cart] }*/);
+			await user.getProducts;
 		/* Om allt blev bra, returnera allPosts */
 		return createResponseSuccess(
 			allProducts.map((product) => _formatProduct(product))
@@ -98,26 +96,6 @@ async function addReview (id, review) {
 }
 
 
-
-// async function addToCart (id, cart) {
-// 	if (!id) {
-// 		return createResponseError(422, "Id är obligatoriskt");
-// 	}
-// 	try {
-// 		cart.userId = id;
-// 		const newCart= await db.cart.create(cart);
-// 		return createResponseSuccess(newCart );
-// 	} catch (error) {
-// 		return createResponseError(error.status, error.message);
-// 	}
-// }
-
-
-
-
-
-
-// *******   Ska det vara product?
 async function create(product) {
 	const invalidData = validate(product, constraints);
 	if (invalidData) {
@@ -125,7 +103,6 @@ async function create(product) {
 	}
 	try {
 		const newProduct = await db.product.create(product);
-		//post tags är en array av namn
 		//lägg till eventuella taggar
 		await _addProductToCart(newProduct, product.carts);
 
@@ -191,14 +168,6 @@ function _formatProduct(product) {
 		createdAt: product.createdAt,
 		updatedAt: product.updatedAt,
 
-		// author: {
-
-		// 	    // id: post.user.id,
-		// 	// id: product.user.id,
-		// 	// email: product.user.email,
-		// 	// firstName: review.user.firstName,
-		// 	// lastName: product.user.lastName,
-		// },
 
 		carts: [],
 		reviews: [],
@@ -210,36 +179,25 @@ function _formatProduct(product) {
 		product.reviews.map((review) => {
 			return (cleanProduct.reviews = [
 				{
-					//id: user.id,
-					// review (title).review.review (title)
+			
 					review: review.review,
 					title: review.title,
 					 body: review.body,
-					// author: user.id,
 
-					//  author: comment.user.username,
 					createdAt: review.createdAt,
 				},
 				...cleanProduct.reviews,
 			]);
 		});
 	}
-	// 	if (product.reviews) {
-	//     cleanProduct.reviews = product.reviews.map((review) => ({
-	// 			review:review.review,
-	//         // title: review.title,
-	//         // body: review.body,
-	//         // author: review.user ? review.user.email: 'Anonym',
-	//         createdAt: review.createdAt,
-	//     }));
-	// }
+
 
 	if (product.carts) {
 		product.carts.map((cart) => {
 			return (cleanProduct.carts = [cart.id, ...cleanProduct.carts]);
 		});
 	}
-	// **********************
+
 	return cleanProduct;
 }
 

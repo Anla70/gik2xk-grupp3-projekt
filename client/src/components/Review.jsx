@@ -1,28 +1,19 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-
 import { Rating,Typography  } from '@mui/material';
-// import UserList from './UserList';
 
 
-// **** Vi har ändrat till review istället för revi
 function Review({review }) {
   return (
-
-    
     <>
-   
        <Link to={`/reviews/${review.id}`}></Link>   
-
-<Typography sx={{ my: 1, display: 'block' }}
+      <Typography sx={{ my: 1, display: 'block' }}
               color="text.primary"
               variant="h4"
               component="span">{review.title}
-              {/* <Rating name="read-only" value={review.review} readOnly />  */}
               </Typography>
   
               <Rating name="read-only" value={review.review} readOnly /> 
-    {/* <p>Skrivet av: {UserList.id}</p> */}
     <Typography
               color="text.secondary"
               variant="body1"
@@ -30,8 +21,6 @@ function Review({review }) {
               sx={{ display: 'block' }}>
               {review.body}
             </Typography>
-     
-      {/* <Rating name="read-only" value={review.review} readOnly />  */}
     </>
   );
 }

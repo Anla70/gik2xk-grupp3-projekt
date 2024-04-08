@@ -11,10 +11,10 @@ import {
   Button,
   Tooltip,
   Alert,
-	Box,
-	Container,
-	Typography,
-	List } from '@mui/material';
+  Box,
+  Container,
+  Typography,
+  List } from '@mui/material';
 
 
 function ProductDetail() {
@@ -38,8 +38,7 @@ function ProductDetail() {
 
 	function clearMessage() {
 		window.history.replaceState({}, "");
-	}
-	
+	}	
 
 	return product ? (
 		<>
