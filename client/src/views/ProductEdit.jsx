@@ -6,18 +6,19 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SaveIcon from "@mui/icons-material/Save";
   
+const emptyProduct= {
+    id: '', 
+    title: '',
+    body: '', 
+    price: '', 
+    imageUrl: ''
+};
 
 function ProductEdit() {
     
     const { id } = useParams();
     const navigate = useNavigate();
-    const emptyProduct= {
-        id: '', 
-        title: '',
-        body: '', 
-        price: '', 
-        imageUrl: ''
-    };
+    
     
     const [product, setProduct]= useState(emptyProduct);
 
