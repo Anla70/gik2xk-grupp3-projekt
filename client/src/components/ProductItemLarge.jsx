@@ -1,5 +1,10 @@
 import PropTypes from 'prop-types';
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import { addToCart } from "../services/CartService";
+import { useState } from "react";
+import { calculateAverageRating } from "../common/RatingHelp";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import { useNavigate} from 'react-router-dom';
 import {
 	Button,
 	TextField,
@@ -9,18 +14,13 @@ import {
 	Typography,
 	Rating,
 } from "@mui/material";
-import { addToCart } from "../services/CartService";
-import { useState } from "react";
-import { calculateAverageRating } from "../common/RatingHelp";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import { useNavigate} from 'react-router-dom';
 
 function ProductItemLarge({product}) {
   const averageRating = product ? calculateAverageRating(product.reviews) : 0;
 	const [amount, setAmount] = useState(1); // Startar med 1 produkt som standard
 	const hardcodedCartId = 1; // Exempel på hårdkodat varukorgs-ID
 	const userId = 1; // Exempel på hårdkodat användar-ID
-const navigate = useNavigate();
+	const navigate = useNavigate();
 
 const handleAddToCart = async () => {
     try {

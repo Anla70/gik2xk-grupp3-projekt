@@ -1,21 +1,21 @@
 const router = require("express").Router();
 const db = require("../models");
 
-
+// för att visa alla carts
 router.get("/", (req, res) => {
 	db.cart.findAll().then((result) => {
 		res.send(result);
 	});
 });
 
-
+// För att kunna skapa en cart
 router.post("/", (req, res) => {
 	const cart = req.body;
 	db.cart.create(cart).then((result) => {
 		res.send(result);
 	});
 });
-
+// för att kunna radera en cart
 router.delete("/", (req, res) => {
 	db.cart
 		.destroy({
@@ -26,7 +26,8 @@ router.delete("/", (req, res) => {
 		});
 });
 
-
+// För att få en specifik cart och visa det som finns i den
+// via cartItems som innehåller produkterna´genom att includera db.products
 router.get("/:id", async (req, res) => {
 	try {
 		const cartItems = await db.cart.findAll({
@@ -45,7 +46,7 @@ router.get("/:id", async (req, res) => {
 	}
 });
 
-
+// För att lägga till varor i cart, userId är för tillfället fast vid 1
 router.post("/addProduct", async (req, res) => {
 	const { productId, amount } = req.body;
 	const userId = 1;
@@ -63,7 +64,7 @@ router.post("/addProduct", async (req, res) => {
 			cart = await db.cart.create({ userId});
 		}
 
-		// Skapar en ny cartItem med produktinformationen
+		// Skapar en ny cartItem med produktinformationen och lagrar den via cartRow
 		const cartItem = await db.cartRow.create({
 			cartId: cart.id,
 			productId: product.id,
