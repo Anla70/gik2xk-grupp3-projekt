@@ -6,19 +6,19 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SaveIcon from "@mui/icons-material/Save";
   
-const emptyProduct= {
-    id: '', 
-    title: '',
-    body: '', 
-    price: '', 
-    imageUrl: ''
-};
 
+    const emptyProduct= {
+        id: 0, 
+        title: '',
+        body: '', 
+        price: '', 
+        imageUrl: ''
+    };   
 function ProductEdit() {
     
     const { id } = useParams();
     const navigate = useNavigate();
-    
+ 
     
     const [product, setProduct]= useState(emptyProduct);
 
@@ -38,7 +38,7 @@ function onChange(e) {
 }
 
 function onSave() {
-    if(product.id===0){
+    if(product.id=== 0){
         create(product).then((response)=>{
             console.log(response)
             navigate('/', {replace: true, state:response});
@@ -145,7 +145,5 @@ return (
     </Container>
 );
 }
-
-
 
 export default ProductEdit;

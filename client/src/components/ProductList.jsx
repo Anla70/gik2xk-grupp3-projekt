@@ -38,15 +38,19 @@ function ProductList({pathname}) {
 		</>
 	);
 }
+// ProductList.propTypes = {
+//   pathname: PropTypes.shape({
+//     id: PropTypes.number,
+//     title: PropTypes.string,
+//     body: PropTypes.string,
+//     review: PropTypes.number,
+// 	createdAt: PropTypes.string,
+//     updatedAt: PropTypes.string, 
+//   }).isRequired
+// };
+
 ProductList.propTypes = {
-  pathname: PropTypes.shape({
-    id: PropTypes.number,
-    title: PropTypes.string,
-    body: PropTypes.string,
-    review: PropTypes.number,
-    createdAt: PropTypes.string,
-    updatedAt: PropTypes.string, 
-  })
+  pathname: PropTypes.string
 };
 
 export default ProductList;

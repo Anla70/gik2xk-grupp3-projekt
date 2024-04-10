@@ -18,8 +18,8 @@ import {
 function ProductItemLarge({product}) {
   const averageRating = product ? calculateAverageRating(product.reviews) : 0;
 	const [amount, setAmount] = useState(1); // Startar med 1 produkt som standard
-	const hardcodedCartId = 1; // Exempel på hårdkodat varukorgs-ID
-	const userId = 1; // Exempel på hårdkodat användar-ID
+	const hardcodedCartId = 1; // Hårdkodat varukorgs-ID
+	const userId = 1; // Hårdkodat användar-ID
 	const navigate = useNavigate();
 
 const handleAddToCart = async () => {
@@ -37,8 +37,7 @@ const handleAddToCart = async () => {
 			<Box sx={{ mb: 2 }}>
 				<Typography variant='h2'> {product.title} </Typography>
 				<Rating name='read-only' value={averageRating} readOnly />
-				<Typography variant='body1'> {product.body} </Typography>
-				<Typography variant='p'> {product.price} kr</Typography>
+				
 			</Box>
       <Box>
 
@@ -47,7 +46,8 @@ const handleAddToCart = async () => {
 				component='img'
 				image={product.imageUrl}
 			/>
-
+			<Typography variant='body1'sx={{ marginTop: 4 }}> {product.body} </Typography>
+			<Typography variant='p' gutterBottom> {product.price} kr</Typography>
 			<Box sx={{ my: 4, p: 4, borderRadius: 2, width: '600px', height: 'auto'}}>
 				<TextField
 					label='Antal'
@@ -88,7 +88,7 @@ const handleAddToCart = async () => {
 ProductItemLarge.propTypes = {
   product: PropTypes.shape({
     reviews: PropTypes.arrayOf(PropTypes.shape({
-		review: PropTypes.number,})).isRequired,
+	review: PropTypes.number,})).isRequired,
     id: PropTypes.number,
     title: PropTypes.string,
     imageUrl: PropTypes.string,
@@ -96,8 +96,10 @@ ProductItemLarge.propTypes = {
     updatedAt: PropTypes.string, 
     body: PropTypes.string,
     price: PropTypes.number,
+	//emptyProduct: PropTypes.object,
     carts: PropTypes.arrayOf(PropTypes.string)
   }).isRequired
 };
 
 export default ProductItemLarge;
+
